@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emma &amp; Isaac · Mariage · Décembre 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Skip link accessibilité -->
+  <a class="skip-link" href="#histoire">Aller au contenu</a>
+
+  <!-- Curseur diamant Myènè -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="8,1 15,8 8,15 1,8" stroke="currentColor" stroke-width="1.2" fill="none"/>
+    </svg>
+  </div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- CTA mobile sticky -->
+  <a class="mobile-rsvp-cta" id="mobile-rsvp-cta" href="#rsvp">Confirmer ma présence →</a>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav" aria-label="Navigation principale">
+    <a class="nav__brand" href="#home">E &amp; I</a>
+
+    <button class="nav__burger" id="nav-burger"
+            aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="nav-links" role="list">
+      <li><a class="nav__link" href="#histoire">Histoire</a></li>
+      <li><a class="nav__link" href="#programme">Programme</a></li>
+      <li><a class="nav__link" href="#lieu">Lieu</a></li>
+      <li><a class="nav__link" href="#peuples">Héritage</a></li>
+      <li><a class="nav__link" href="#dresscode">Dress Code</a></li>
+      <li><a class="nav__link" href="#faq">FAQ</a></li>
+      <li><a class="nav__link nav__link--cta" href="#rsvp">Confirmer ma présence</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       HERO — Section 1
+  ============================================================ -->
+  <section class="hero" id="home">
+
+    <!-- Left: Photo Panel -->
+    <div class="hero__visual">
+
+      <!-- Photo couple -->
+      <img
+        class="hero__photo"
+        src="img/emma-isaac.jpeg"
+        alt="Emma et Isaac"
+      />
+
+      <!-- Overlays premium -->
+      <div class="hero__overlay hero__overlay--vignette" aria-hidden="true"></div>
+      <div class="hero__overlay hero__overlay--left"    aria-hidden="true"></div>
+      <div class="hero__overlay hero__overlay--bottom"  aria-hidden="true"></div>
+
+      <!-- Motif Myènè en transparence -->
+      <svg class="hero__pattern" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <pattern id="myene-diamonds" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+            <polygon points="14,2 26,14 14,26 2,14" fill="none" stroke="rgba(245,236,215,0.10)" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#myene-diamonds)"/>
+      </svg>
+
+    </div>
+
+    <!-- Right: Content Panel -->
+    <div class="hero__content-panel">
+
+      <!-- Vertical accent line (left edge of panel) -->
+      <div class="hero__accent-line" aria-hidden="true"></div>
+
+      <div class="hero__content">
+
+        <p class="hero__label animate" style="--d: 0.1s">Mariage</p>
+
+        <h1 class="hero__names animate" style="--d: 0.25s">
+          Emma
+          <em class="hero__amp">&amp;</em>
+          Isaac
+        </h1>
+
+        <div class="hero__divider animate" style="--d: 0.4s"></div>
+
+        <div class="hero__info animate" style="--d: 0.55s">
+          <span class="hero__dates">17 &amp; 19 Déc. 2026</span>
+          <span class="hero__location">Libreville · Gabon</span>
+        </div>
+
+        <!-- Jour J — live le 17 et 19 décembre 2026 (preview: ?jourlive=17) -->
+        <div class="hero__jour-j animate" id="hero-jour-j" style="--d:0.7s" aria-hidden="true">
+          <p class="jourlive__tag">
+            <span class="jourlive__dot" aria-hidden="true"></span>
+            En direct · <span id="jourlive-dayname"></span>
+          </p>
+          <ol class="jourlive__timeline" id="jourlive-timeline" aria-live="polite"></ol>
+        </div>
+
+        <!-- Live Countdown -->
+        <div class="hero__countdown animate" style="--d: 0.7s">
+          <div class="countdown__unit">
+            <span class="countdown__num" id="c-days">---</span>
+            <span class="countdown__lbl">Jours</span>
+          </div>
+          <span class="countdown__sep">:</span>
+          <div class="countdown__unit">
+            <span class="countdown__num" id="c-hours">--</span>
+            <span class="countdown__lbl">Heures</span>
+          </div>
+          <span class="countdown__sep countdown__sep--mobile-hide">:</span>
+          <div class="countdown__unit countdown__unit--mobile-hide">
+            <span class="countdown__num" id="c-min">--</span>
+            <span class="countdown__lbl">Min.</span>
+          </div>
+          <span class="countdown__sep countdown__sep--mobile-hide">:</span>
+          <div class="countdown__unit countdown__unit--mobile-hide">
+            <span class="countdown__num" id="c-sec">--</span>
+            <span class="countdown__lbl">Sec.</span>
+          </div>
+        </div>
+
+        <div class="hero__ctas animate" style="--d: 0.85s">
+          <a href="#rsvp" class="hero__cta">
+            <span class="hero__cta-fill" aria-hidden="true"></span>
+            <span class="hero__cta-text">Confirmer ma présence</span>
+          </a>
+          <a href="#programme" class="hero__cta-sec">Voir le programme →</a>
+        </div>
+
+        <p class="hero__deadline animate" style="--d: 1.0s">
+          Avant le 31 juillet 2026
+        </p>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       NOTRE HISTOIRE — Chapitre I
+  ============================================================ -->
+  <section class="story" id="histoire" data-reveal>
+
+    <div class="section__head">
+      <p class="section__eyebrow">Chapitre I</p>
+      <h2 class="section__title">Notre <em>Histoire</em></h2>
+      <p class="section__lead">De la salle de classe à l'autel — une amitié devenue amour.</p>
+    </div>
+
+    <!-- Label latéral vertical -->
+    <div class="story__side-label" aria-hidden="true">Notre Histoire</div>
+
+    <div class="story__inner">
+
+      <!-- Timeline verticale -->
+      <div class="story__timeline" aria-hidden="true">
+        <div class="story__line"></div>
+      </div>
+
+      <!-- Étapes -->
+      <div class="story__steps">
+
+        <!-- Étape 1 : Le lycée -->
+        <article class="story__step">
+          <div class="story__dot">
+            <div class="story__dot-inner"></div>
+          </div>
+          <div class="story__content">
+            <span class="story__year">Il y a longtemps…</span>
+            <h3 class="story__title">Deux élèves, un même lycée</h3>
+            <p class="story__text">
+              Tout a commencé dans les couloirs d'un lycée. Emma et Isaac se
+              croisent sans vraiment se connaître — deux univers qui gravitent
+              l'un autour de l'autre sans encore se toucher.
+            </p>
+          </div>
+        </article>
+
+        <!-- Étape 2 : Les amis communs -->
+        <article class="story__step story__step--right">
+          <div class="story__dot">
+            <div class="story__dot-inner"></div>
+          </div>
+          <div class="story__content">
+            <span class="story__year">Le cercle se resserre</span>
+            <h3 class="story__title">Des amis en commun</h3>
+            <p class="story__text">
+              Le destin s'en mêle à travers des amis partagés. Les rencontres
+              se multiplient, les conversations s'allongent, et une complicité
+              évidente commence à naître entre eux.
+            </p>
+          </div>
+        </article>
+
+        <!-- Étape 3 : L'amitié -->
+        <article class="story__step">
+          <div class="story__dot">
+            <div class="story__dot-inner"></div>
+          </div>
+          <div class="story__content">
+            <span class="story__year">Une belle amitié</span>
+            <h3 class="story__title">Longtemps amis, vraiment amis</h3>
+            <p class="story__text">
+              Avant tout, ils ont été amis — sincèrement, profondément.
+              Cette amitié a été leur fondation : la confiance, le respect,
+              le rire partagé. Tout ce dont un amour durable a besoin.
+            </p>
+          </div>
+        </article>
+
+        <!-- Étape 4 : L'amour -->
+        <article class="story__step story__step--right">
+          <div class="story__dot story__dot--accent">
+            <div class="story__dot-inner"></div>
+          </div>
+          <div class="story__content">
+            <span class="story__year">Et puis…</span>
+            <h3 class="story__title">L'amitié est devenue amour</h3>
+            <p class="story__text">
+              À un moment que ni l'un ni l'autre ne saurait dater précisément,
+              l'évidence s'est imposée. Ce n'était plus seulement de l'amitié.
+              C'était quelque chose de plus grand — et de plus beau.
+            </p>
+          </div>
+        </article>
+
+        <!-- Citation finale -->
+        <div class="story__quote-wrap">
+          <blockquote class="story__quote">
+            "Le plus beau voyage est celui que l'on fait ensemble."
+          </blockquote>
+          <cite class="story__cite">Emma &amp; Isaac</cite>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       LE PROGRAMME — Chapitre II
+  ============================================================ -->
+  <section class="program" id="programme" data-reveal>
+
+    <div class="section__head">
+      <p class="section__eyebrow">Chapitre II</p>
+      <h2 class="section__title">Deux jours, <em>trois cérémonies</em></h2>
+      <p class="section__lead">Chaque moment a sa signification. Découvrez le déroulé heure par heure.</p>
+    </div>
+
+    <!-- Toggle Jour 1 / Jour 2 -->
+    <div class="program__toggle" role="tablist" aria-label="Sélection du jour">
+      <button class="program__toggle-btn is-on" data-day-toggle="1"
+              role="tab" aria-selected="true" aria-controls="prog-day-1">
+        17 Déc. · Jour 1
+      </button>
+      <button class="program__toggle-btn" data-day-toggle="2"
+              role="tab" aria-selected="false" aria-controls="prog-day-2">
+        19 Déc. · Jour 2
+      </button>
+    </div>
+
+    <!-- JOUR 1 -->
+    <div class="program__day-panel is-active" id="prog-day-1" data-day="1" role="tabpanel">
+
+      <div class="day-head">
+        <span class="day-head__num">17</span>
+        <div class="day-head__meta">
+          <span class="day-head__theme">Cérémonie Coutumière Myènè</span>
+          <span class="day-head__loc">Commune d'Akanda · Libreville</span>
+        </div>
+      </div>
+
+      <div class="events">
+
+        <div class="event">
+          <div class="event__time">15h00<small>Accueil</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Accueil des familles</p>
+            <p class="event__desc">Les deux familles se retrouvent. Présentations, discussions et premières danses dans une atmosphère chaleureuse.</p>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event__time">16h00<small>Coutume</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Cérémonie Coutumière Myènè</p>
+            <p class="event__desc">Le rite ancestral : présentation de la dot, remise du pagne Okourwè, bénédictions des anciens et danse Ekounda des femmes Myènè.</p>
+            <p class="event__meta">Pagne &amp; tenues traditionnelles · Akanda</p>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event__time">18h30<small>Fête</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Repas &amp; Danses traditionnelles</p>
+            <p class="event__desc">Dîner festif avec les deux familles, suivi de danses et musiques des peuples Myènè et Ghisir jusqu'en soirée.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- JOUR 2 -->
+    <div class="program__day-panel" id="prog-day-2" data-day="2" role="tabpanel">
+
+      <div class="day-head">
+        <span class="day-head__num day-head__num--brown">19</span>
+        <div class="day-head__meta">
+          <span class="day-head__theme">Mariage Civil, Religieux &amp; Soirée</span>
+          <span class="day-head__loc">Commune d'Owendo · Libreville</span>
+        </div>
+      </div>
+
+      <div class="events day-2">
+
+        <div class="event">
+          <div class="event__time">10h00<small>Civil</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Mariage Civil</p>
+            <p class="event__desc">L'union officielle devant la loi. Emma et Isaac signent pour toujours, entourés de leurs témoins et de leurs proches.</p>
+            <p class="event__meta">Champêtre · Terracotta &amp; tons chauds · Owendo</p>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event__time">15h00<small>Religieux</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Mariage Religieux</p>
+            <p class="event__desc">Cérémonie chrétienne — bénie et solennelle. L'union devant Dieu, entourés de la communauté et de la grâce.</p>
+            <p class="event__meta">Champêtre · Terracotta &amp; tons chauds · Owendo</p>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event__time">18h00<small>Cocktail</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Cocktail &amp; Photos</p>
+            <p class="event__desc">Verre de bienvenue en plein air, photos de groupe, et premier toast aux mariés.</p>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event__time">20h00<small>Fête</small></div>
+          <div class="event__bullet"><span></span></div>
+          <div class="event__body">
+            <p class="event__name">Dîner &amp; Bal</p>
+            <p class="event__desc">Grand repas festif suivi du bal — danses, musique et souvenirs qui dureront toute une vie.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       LES LIEUX — Chapitre III
+  ============================================================ -->
+  <section class="lieu" id="lieu" data-reveal>
+
+    <div class="section__head">
+      <p class="section__eyebrow">Chapitre III</p>
+      <h2 class="section__title">Les <em>Lieux</em></h2>
+      <p class="section__lead">Deux communes, deux atmosphères, une seule célébration.</p>
+    </div>
+
+    <div class="lieu__grid">
+
+      <!-- Akanda -->
+      <div class="lieu__card lieu__card--1">
+        <div class="lieu__card-top">
+          <div class="lieu__day-badge">17 Déc.</div>
+          <div class="lieu__card-info">
+            <h3 class="lieu__name">Commune d'Akanda</h3>
+            <p class="lieu__type">Cérémonie Coutumière · Myènè</p>
+            <p class="lieu__desc">
+              Au nord de Libreville, Akanda borde l'estuaire du Gabon — entre mangroves
+              et horizon marin, fidèle à l'identité côtière du peuple Myènè.
+            </p>
+          </div>
+        </div>
+        <div class="lieu__address">
+          <strong>Commune d'Akanda</strong>
+          Akanda, Libreville, Gabon<br/>
+          Jeudi 17 décembre 2026 · 15h00
+        </div>
+        <div class="lieu__nav-buttons">
+          <a class="lieu__nav-btn"
+             href="https://maps.google.com/?q=Commune+d%27Akanda+Libreville+Gabon"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.5C4.5 1.5 2.5 3.5 2.5 6c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5c0-2.5-2-4.5-4.5-4.5z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="6" r="1.5" stroke="currentColor" stroke-width="1.1"/></svg>
+            Google Maps
+          </a>
+          <a class="lieu__nav-btn"
+             href="https://waze.com/ul?q=Commune+d%27Akanda+Libreville+Gabon&navigate=yes"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="6.5" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M5 9.5c1 1 3 1 4 0" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><circle cx="5.5" cy="6" r="1" fill="currentColor"/><circle cx="8.5" cy="6" r="1" fill="currentColor"/></svg>
+            Waze
+          </a>
+          <a class="lieu__nav-btn"
+             href="https://maps.apple.com/?q=Commune+d%27Akanda+Libreville+Gabon"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.5C4.5 1.5 2.5 3.5 2.5 6c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5c0-2.5-2-4.5-4.5-4.5z" stroke="currentColor" stroke-width="1.2"/><path d="M7 4.5v2l1 1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+            Plans (Apple)
+          </a>
+        </div>
+      </div>
+
+      <!-- Owendo -->
+      <div class="lieu__card lieu__card--2">
+        <div class="lieu__card-top">
+          <div class="lieu__day-badge lieu__day-badge--2">19 Déc.</div>
+          <div class="lieu__card-info">
+            <h3 class="lieu__name">Commune d'Owendo</h3>
+            <p class="lieu__type">Mariage Civil &amp; Religieux</p>
+            <p class="lieu__desc">
+              Au sud de Libreville, Owendo borde la baie de Libreville —
+              cadre chaleureux pour la double promesse civile et religieuse.
+            </p>
+          </div>
+        </div>
+        <div class="lieu__address">
+          <strong>Commune d'Owendo</strong>
+          Owendo, Libreville, Gabon<br/>
+          Samedi 19 décembre 2026 · 10h00
+        </div>
+        <div class="lieu__nav-buttons">
+          <a class="lieu__nav-btn"
+             href="https://maps.google.com/?q=Commune+d%27Owendo+Libreville+Gabon"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.5C4.5 1.5 2.5 3.5 2.5 6c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5c0-2.5-2-4.5-4.5-4.5z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="6" r="1.5" stroke="currentColor" stroke-width="1.1"/></svg>
+            Google Maps
+          </a>
+          <a class="lieu__nav-btn"
+             href="https://waze.com/ul?q=Commune+d%27Owendo+Libreville+Gabon&navigate=yes"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="6.5" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M5 9.5c1 1 3 1 4 0" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><circle cx="5.5" cy="6" r="1" fill="currentColor"/><circle cx="8.5" cy="6" r="1" fill="currentColor"/></svg>
+            Waze
+          </a>
+          <a class="lieu__nav-btn"
+             href="https://maps.apple.com/?q=Commune+d%27Owendo+Libreville+Gabon"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.5C4.5 1.5 2.5 3.5 2.5 6c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5c0-2.5-2-4.5-4.5-4.5z" stroke="currentColor" stroke-width="1.2"/><path d="M7 4.5v2l1 1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+            Plans (Apple)
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       DEUX PEUPLES — Chapitre IV
+  ============================================================ -->
+  <section class="myene" id="peuples" data-reveal>
+
+    <div class="myene__bg-pattern" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <pattern id="myene-bg" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <polygon points="20,3 37,20 20,37 3,20" fill="none" stroke="currentColor" stroke-width="0.7"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#myene-bg)"/>
+      </svg>
+    </div>
+
+    <div class="section__head">
+      <p class="section__eyebrow">Chapitre IV</p>
+      <h2 class="section__title myene__title">Deux peuples, <em>une union</em></h2>
+    </div>
+
+    <div class="myene__inner">
+
+      <!-- Colonne gauche : intro -->
+      <div class="myene__lead">
+        <div class="myene__rule"></div>
+        <p class="myene__intro">
+          Emma est Myènè, Isaac est Ghisir. Deux peuples du Gabon, deux cultures vibrantes,
+          une seule promesse. Ce mariage célèbre non seulement leur amour, mais la rencontre
+          de deux héritages qui, ensemble, tracent une nouvelle histoire.
+        </p>
+
+        <!-- Tabs Myènè / Ghisir -->
+        <div class="myene__tabs" role="tablist" aria-label="Sélection du peuple">
+          <button class="myene__tab is-on" data-people-toggle="myene"
+                  role="tab" aria-selected="true">Myènè · Emma</button>
+          <button class="myene__tab" data-people-toggle="ghisir"
+                  role="tab" aria-selected="false">Ghisir · Isaac</button>
+        </div>
+
+        <!-- Grand motif décoratif -->
+        <div class="myene__diamond-large" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,4 116,60 60,116 4,60" stroke="currentColor" stroke-width="1.2"/>
+            <polygon points="60,18 102,60 60,102 18,60" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
+            <polygon points="60,32 88,60 60,88 32,60" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="60" cy="60" r="4" fill="currentColor" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Colonne droite : piliers culturels -->
+      <div class="myene__pillars">
+
+        <!-- Panneau Myènè -->
+        <div class="myene__tab-panel is-active" data-people="myene">
+
+          <div class="myene__pillar">
+            <div class="myene__pillar-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 4 C8 4 4 10 4 16 C4 24 16 30 16 30 C16 30 28 24 28 16 C28 10 24 4 16 4Z" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M16 10 C12 10 10 13 10 16 C10 20 16 24 16 24 C16 24 22 20 22 16 C22 13 20 10 16 10Z" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+              </svg>
+            </div>
+            <h3 class="myene__pillar-title">Peuple de l'estuaire</h3>
+            <p class="myene__pillar-text">
+              Installés sur les rives de l'estuaire du Gabon depuis des siècles, les Myènè
+              sont pêcheurs, navigateurs et commerçants. La mer façonne leur identité,
+              leurs rituels et leur rapport au monde.
+            </p>
+          </div>
+
+          <div class="myene__pillar">
+            <div class="myene__pillar-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 26 C8 18 12 12 16 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M24 26 C24 18 20 12 16 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M10 20 Q16 16 22 20" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M10 23 Q16 19 22 23" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.5"/>
+                <circle cx="16" cy="7" r="2" stroke="currentColor" stroke-width="1"/>
+              </svg>
+            </div>
+            <h3 class="myene__pillar-title">La danse Ekounda</h3>
+            <p class="myene__pillar-text">
+              L'Ekounda est la danse cérémonielle des femmes Myènè — ondulations rythmées,
+              pagnes colorés et chants en chœur. Elle scellera l'union lors de la coutume
+              du 17 décembre, comme le veut la tradition.
+            </p>
+          </div>
+
+          <div class="myene__pillar">
+            <div class="myene__pillar-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="12" width="20" height="14" rx="1" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M10 12 V9 Q16 5 22 9 V12" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="16" y1="16" x2="16" y2="22" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+                <line x1="13" y1="19" x2="19" y2="19" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="myene__pillar-title">La dot &amp; le pagne Okourwè</h3>
+            <p class="myene__pillar-text">
+              La cérémonie coutumière réunit les deux familles autour de la dot — offrandes
+              et symboles d'alliance. Le pagne Okourwè, tissé de motifs géométriques,
+              habille les femmes de la famille ce jour-là.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Panneau Ghisir -->
+        <div class="myene__tab-panel" data-people="ghisir">
+
+          <div class="myene__pillar">
+            <div class="myene__pillar-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 26 L16 6 L26 26" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 20 h12" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+                <circle cx="16" cy="6" r="2" fill="currentColor" opacity="0.4"/>
+              </svg>
+            </div>
+            <h3 class="myene__pillar-title">Peuple des plateaux</h3>
+            <p class="myene__pillar-text">
+              Le peuple Ghisir est établi dans les régions montagneuses et forestières du
+              Gabon. Agriculteurs et gardiens de la forêt, ils cultivent des valeurs de
+              solidarité familiale et de respect des ancêtres depuis des générations.
+            </p>
+          </div>
+
+          <div class="myene__pillar">
+            <div class="myene__pillar-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.1"/>
+                <path d="M10 16 Q16 10 22 16 Q16 22 10 16Z" stroke="currentColor" stroke-width="0.9" fill="none"/>
+                <circle cx="16" cy="16" r="3" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+              </svg>
+            </div>
+            <h3 class="myene__pillar-title">Le rite du Mwiri</h3>
+            <p class="myene__pillar-text">
+              Parmi les traditions Ghisir, le Mwiri est une société initiatique qui transmet
+              les valeurs morales et spirituelles de génération en génération. La parole des
+              anciens y est sacrée, et la communauté guide chaque étape de vie.
+            </p>
+          </div>
+
+          <div class="myene__pillar">
+            <div class="myene__pillar-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 20 C8 14 11 10 16 8 C21 10 24 14 24 20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M12 28 C12 24 14 22 16 22 C18 22 20 24 20 28" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <path d="M8 20 h4 M20 20 h4" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="myene__pillar-title">La famille, pilier central</h3>
+            <p class="myene__pillar-text">
+              Dans la culture Ghisir, le mariage est avant tout l'union de deux familles.
+              Les aînés bénissent l'union, les cadeaux circulent entre les clans,
+              et la fête rassemble la communauté autour des mariés.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       DRESS CODE — Chapitre V
+  ============================================================ -->
+  <section class="dresscode" id="dresscode" data-reveal>
+
+    <div class="section__head">
+      <p class="section__eyebrow">Chapitre V</p>
+      <h2 class="section__title">Le <em>Dress Code</em></h2>
+      <p class="section__lead">Deux jours, deux ambiances — habillez-vous pour la fête.</p>
+    </div>
+
+    <div class="dresscode__grid">
+
+      <!-- Jour 1 -->
+      <div class="dresscode__day">
+        <div class="dresscode__day-label">17 Décembre · Coutume</div>
+        <h3 class="dresscode__day-title">Tenues Traditionnelles</h3>
+        <p class="dresscode__day-desc">
+          Pagne imprimé, boubou, tenue africaine colorée.
+          Célébrez avec nous dans l'esprit Myènè — couleurs vives, tissus riches.
+        </p>
+        <div class="dresscode__palette">
+          <div class="dresscode__swatch" style="background:#B85A2C;" title="Terracotta"></div>
+          <div class="dresscode__swatch" style="background:#E8884A;" title="Orange"></div>
+          <div class="dresscode__swatch" style="background:#B8893A;" title="Or"></div>
+          <div class="dresscode__swatch" style="background:#5C3320;" title="Brun"></div>
+          <div class="dresscode__swatch" style="background:#F4EBD3;" title="Ivoire"></div>
+        </div>
+        <p class="dresscode__palette-note">Toutes les couleurs de pagne sont les bienvenues.</p>
+      </div>
+
+      <!-- Séparateur -->
+      <div class="dresscode__sep" aria-hidden="true">
+        <svg viewBox="0 0 24 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="12" y1="0" x2="12" y2="44" stroke="currentColor" stroke-width="0.8"/>
+          <polygon points="12,48 18,60 12,72 6,60" stroke="currentColor" stroke-width="0.8" fill="none"/>
+          <line x1="12" y1="76" x2="12" y2="120" stroke="currentColor" stroke-width="0.8"/>
+        </svg>
+      </div>
+
+      <!-- Jour 2 -->
+      <div class="dresscode__day">
+        <div class="dresscode__day-label">19 Décembre · Civil &amp; Religieux</div>
+        <h3 class="dresscode__day-title">Champêtre &amp; Élégant</h3>
+        <p class="dresscode__day-desc">
+          Tenue habillée dans des tons naturels et chauds. Robes fluides, costumes légers —
+          l'élégance champêtre sous le soleil de Libreville.
+        </p>
+        <div class="dresscode__palette">
+          <div class="dresscode__swatch" style="background:#3A2014;" title="Brun foncé"></div>
+          <div class="dresscode__swatch" style="background:#94401D;" title="Brique"></div>
+          <div class="dresscode__swatch" style="background:#B8893A;" title="Or"></div>
+          <div class="dresscode__swatch" style="background:#1A0F08;" title="Noir"></div>
+          <div class="dresscode__swatch" style="background:#F4EBD3;" title="Ivoire"></div>
+        </div>
+        <p class="dresscode__palette-note">Évitez le blanc — réservé aux mariés.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       RSVP — Chapitre VI — Wizard multi-étapes
+  ============================================================ -->
+  <section class="rsvp" id="rsvp" data-reveal>
+
+    <div class="rsvp__centered">
+
+      <div class="section__head">
+        <p class="section__eyebrow section__eyebrow--light">Chapitre VI</p>
+        <h2 class="section__title section__title--light">Serez-vous <em>des nôtres</em> ?</h2>
+        <p class="section__lead section__lead--light">
+          Emma &amp; Isaac espèrent vous accueillir à Libreville pour partager ces moments précieux.
+        </p>
+      </div>
+
+      <div class="rsvp__deadline-bar">
+        <span>Date limite · RSVP</span>
+        <span>31 juillet 2026</span>
+      </div>
+
+      <div class="rsvp__box">
+
+        <!-- Indicateur d'étapes -->
+        <div class="wiz-steps" aria-label="Étapes du formulaire">
+          <div class="wiz-step is-current" data-step="1">
+            <div class="wiz-step__num">1</div>
+            <span class="wiz-step__label">Vous</span>
+          </div>
+          <div class="wiz-step" data-step="2">
+            <div class="wiz-step__num">2</div>
+            <span class="wiz-step__label">Présence</span>
+          </div>
+          <div class="wiz-step" data-step="3">
+            <div class="wiz-step__num">3</div>
+            <span class="wiz-step__label">Détails</span>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <form id="rsvp-form" novalidate>
+
+          <!-- Étape 1 : Identité -->
+          <div class="wiz-panel is-active" data-panel="1">
+            <p class="wiz-panel__title">Qui êtes-vous ?</p>
+            <p class="wiz-panel__sub">Commençons par faire connaissance.</p>
+            <div class="field">
+              <label class="field__label" for="wiz-prenom">Prénom</label>
+              <input class="field__input" type="text" id="wiz-prenom" name="prenom"
+                     placeholder="Emma" required autocomplete="given-name"/>
+            </div>
+            <div class="field">
+              <label class="field__label" for="wiz-nom">Nom</label>
+              <input class="field__input" type="text" id="wiz-nom" name="nom"
+                     placeholder="Dupont" required autocomplete="family-name"/>
+            </div>
+            <div class="field">
+              <label class="field__label" for="wiz-email">Adresse e-mail</label>
+              <input class="field__input" type="email" id="wiz-email" name="email"
+                     placeholder="votre@email.com" required autocomplete="email"/>
+            </div>
+            <div class="field">
+              <label class="field__label" for="wiz-tel">Téléphone <span style="opacity:0.45">(facultatif)</span></label>
+              <input class="field__input" type="tel" id="wiz-tel" name="tel"
+                     placeholder="+241 …" autocomplete="tel"/>
+            </div>
+            <div class="field">
+              <label class="field__label" for="wiz-ville">Ville d'origine <span style="opacity:0.45">(facultatif)</span></label>
+              <input class="field__input" type="text" id="wiz-ville" name="ville"
+                     placeholder="Paris, France" autocomplete="address-level2"/>
+            </div>
+          </div>
+
+          <!-- Étape 2 : Présence -->
+          <div class="wiz-panel" data-panel="2">
+            <p class="wiz-panel__title">Votre présence</p>
+            <p class="wiz-panel__sub">Pour quelles cérémonies serez-vous des nôtres ?</p>
+            <div class="field">
+              <label class="field__label">Je serai présent(e) pour</label>
+              <div class="pill-row">
+                <button type="button" class="pill is-on" data-value="coutume">17 Déc. · Coutume Myènè</button>
+                <button type="button" class="pill is-on" data-value="civil">19 Déc. · Mariage Civil</button>
+                <button type="button" class="pill is-on" data-value="religieux">19 Déc. · Mariage Religieux</button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label">Nombre de personnes (vous inclus)</label>
+              <div class="wiz-stepper">
+                <button type="button" class="wiz-stepper__btn" id="wiz-dec" aria-label="Diminuer">−</button>
+                <span class="wiz-stepper__val" id="wiz-cnt" aria-live="polite">1</span>
+                <button type="button" class="wiz-stepper__btn" id="wiz-inc" aria-label="Augmenter">+</button>
+              </div>
+              <div class="wiz-companions" id="wiz-companions"></div>
+            </div>
+          </div>
+
+          <!-- Étape 3 : Détails -->
+          <div class="wiz-panel" data-panel="3">
+            <p class="wiz-panel__title">Derniers détails</p>
+            <p class="wiz-panel__sub">Pour que tout soit parfait pour vous.</p>
+            <div class="field">
+              <label class="field__label" for="wiz-diet">Restrictions alimentaires <span style="opacity:0.45">(facultatif)</span></label>
+              <input class="field__input" type="text" id="wiz-diet" name="diet"
+                     placeholder="Végétarien, allergies, halal…"/>
+            </div>
+            <div class="field">
+              <label class="field__label" for="wiz-transport">Avez-vous besoin d'une navette ?</label>
+              <select class="field__input" id="wiz-transport" name="transport">
+                <option value="">— Sélectionnez —</option>
+                <option value="oui-j1">Oui, pour le 17 décembre</option>
+                <option value="oui-j2">Oui, pour le 19 décembre</option>
+                <option value="oui-les2">Oui, pour les deux jours</option>
+                <option value="non">Non, je me déplace seul(e)</option>
+              </select>
+            </div>
+            <label class="checkbox-row">
+              <input type="checkbox" name="hotel"/>
+              <div class="box"></div>
+              <span>J'ai besoin d'informations sur les hôtels partenaires</span>
+            </label>
+            <div class="field">
+              <label class="field__label" for="wiz-message">Un mot pour les mariés <span style="opacity:0.45">(facultatif)</span></label>
+              <textarea class="field__input field__textarea" id="wiz-message" name="message"
+                        placeholder="Avec tout notre amour…" rows="4"></textarea>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="wiz-nav">
+            <button type="button" class="wiz-btn wiz-btn--prev" id="wiz-prev" disabled>
+              ← Retour
+            </button>
+            <button type="button" class="wiz-btn wiz-btn--next" id="wiz-next">
+              Suivant →
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Écran succès -->
+        <div class="rsvp-success" id="rsvp-success" aria-live="polite">
+          <div class="rsvp-success__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M7 14l5 5 9-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="rsvp-success__title">Merci !</p>
+          <p class="rsvp-success__text">
+            Emma &amp; Isaac ont bien reçu votre réponse.<br/>
+            Ils ont hâte de vous retrouver à Libreville.
+          </p>
+        </div>
+
+      </div><!-- /.rsvp__box -->
+    </div><!-- /.rsvp__centered -->
+
+  </section>
+
+  <!-- ============================================================
+       FAQ — Chapitre VII
+  ============================================================ -->
+  <section class="faq" id="faq" data-reveal>
+    <div class="faq__inner">
+
+      <div class="section__head">
+        <p class="section__eyebrow">Chapitre VII</p>
+        <h2 class="section__title">Questions <em>pratiques</em></h2>
+        <p class="section__lead">Tout ce qu'il faut savoir pour voyager sereinement jusqu'à Libreville.</p>
+      </div>
+
+      <div class="faq__list" role="list">
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Les enfants sont-ils les bienvenus ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Absolument ! Les enfants sont les bienvenus pour toutes les cérémonies.
+              Un espace adapté leur sera réservé lors du dîner du 19 décembre.
+              N'hésitez pas à préciser le nombre et l'âge dans votre RSVP.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Dois-je prévoir un visa pour entrer au Gabon ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Les ressortissants de la plupart des pays africains et de certains pays européens
+              peuvent obtenir un visa à l'arrivée à l'aéroport de Libreville (Leon M'Ba).
+              Vérifiez les exigences selon votre nationalité sur le site de l'ambassade du Gabon.
+              Prévoyez votre demande au moins 4 semaines à l'avance pour être serein.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Quels vaccins sont obligatoires ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Le vaccin contre la fièvre jaune est <strong>obligatoire</strong> pour entrer au Gabon
+              — vous devrez présenter votre carnet international de vaccination à l'arrivée.
+              Il est également recommandé de se protéger contre le paludisme (antipaludéens
+              à commencer avant le départ) et d'être à jour sur les vaccins hépatites A/B,
+              typhoïde et méningite. Consultez votre médecin au moins 6 semaines avant.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Quels hôtels sont recommandés à Libreville ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Libreville dispose d'une belle offre hôtelière. Quelques suggestions :
+              <strong>Hôtel Radisson Blu</strong> (centre-ville, haut de gamme),
+              <strong>Palm Beach Hôtel</strong> (bord de mer, bon rapport qualité-prix),
+              <strong>Hôtel Tropicana</strong> (quartier Louis, confortable).
+              Réservez tôt — décembre est une période chargée en événements.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Y aura-t-il une navette entre les lieux ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Oui ! Une navette sera organisée depuis le centre de Libreville vers Akanda
+              (17 déc.) et Owendo (19 déc.). Merci de préciser votre besoin de navette
+              dans votre RSVP afin que nous puissions anticiper les capacités.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Quelle météo prévoir en décembre à Libreville ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Décembre marque le début de la grande saison des pluies au Gabon.
+              Attendez-vous à une chaleur tropicale (26–30 °C), avec des averses
+              souvent en fin d'après-midi ou le soir. Prévoyez des vêtements légers
+              et respirants, une petite veste pour les soirées climatisées,
+              et n'oubliez pas la crème solaire et un imperméable léger.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Comment offrir un cadeau aux mariés ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Votre présence est déjà le plus beau des cadeaux. Si vous souhaitez
+              leur offrir quelque chose, une enveloppe est la forme la plus pratique
+              compte tenu de la logistique internationale. Une urne sera disponible
+              lors des cérémonies. Consultez la section Cadeaux pour plus de détails.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button class="faq__q" aria-expanded="false">
+            Dois-je porter un pagne le 17 décembre si je ne suis pas gabonais(e) ?
+            <span class="faq__icon" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__a" role="region">
+            <p class="faq__a-inner">
+              Ce n'est pas obligatoire, mais c'est vivement encouragé et très apprécié !
+              Porter un pagne ou une tenue africaine colorée est une belle façon
+              de célébrer avec les mariés et d'honorer leurs cultures.
+              Toutes les couleurs vives sont les bienvenues. Si vous n'avez pas de pagne,
+              une tenue habillée dans des tons chauds sera parfaite.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CADEAUX — Chapitre VIII
+  ============================================================ -->
+  <section class="gifts" id="cadeaux" data-reveal>
+    <div class="gifts__inner">
+
+      <div class="section__head">
+        <p class="section__eyebrow">Chapitre VIII</p>
+        <h2 class="section__title">La Table <em>des Cadeaux</em></h2>
+      </div>
+
+      <p class="gifts__intro">
+        Votre présence est le plus beau cadeau.<br/>
+        Si vous souhaitez contribuer à notre bonheur,
+        <em>plusieurs options s'offrent à vous</em>
+        selon votre situation.
+      </p>
+
+      <!-- Cadeau animé — état fermé -->
+      <div class="gifts__box-wrap" id="gifts-box-wrap">
+        <button class="gifts__box-btn" id="gifts-box-btn"
+                aria-label="Découvrir les façons de contribuer">
+          <div class="gifts__box-art" aria-hidden="true">
+            <svg class="gifts__box-svg" viewBox="0 0 80 72" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <!-- Corps du cadeau (fixe) -->
+              <g class="gifts__svg-body">
+                <rect x="8" y="36" width="64" height="30" rx="1.5"
+                      stroke="currentColor" stroke-width="1.3"/>
+                <line x1="37" y1="36" x2="37" y2="66"
+                      stroke="currentColor" stroke-width="1.3"/>
+                <line x1="43" y1="43" x2="43" y2="66"
+                      stroke="currentColor" stroke-width="1.3"/>
+              </g>
+              <!-- Couvercle + nœud (se soulève à l'ouverture) -->
+              <g class="gifts__svg-lid">
+                <rect x="8" y="22" width="64" height="14" rx="1.5"
+                      stroke="currentColor" stroke-width="1.3"/>
+                <line x1="37" y1="22" x2="37" y2="36"
+                      stroke="currentColor" stroke-width="1.3"/>
+                <line x1="43" y1="22" x2="43" y2="36"
+                      stroke="currentColor" stroke-width="1.3"/>
+                <!-- Boucle gauche du nœud -->
+                <path d="M40 22 C38 18 26 6 29 3 C32 1 38 12 40 22Z"
+                      stroke="currentColor" stroke-width="1.2"
+                      stroke-linejoin="round"/>
+                <!-- Boucle droite du nœud -->
+                <path d="M40 22 C42 18 54 6 51 3 C48 1 42 12 40 22Z"
+                      stroke="currentColor" stroke-width="1.2"
+                      stroke-linejoin="round"/>
+                <!-- Centre du nœud -->
+                <ellipse cx="40" cy="22" rx="3" ry="2"
+                         stroke="currentColor" stroke-width="1.1"/>
+              </g>
+            </svg>
+          </div>
+          <p class="gifts__box-label">Un geste du cœur</p>
+          <p class="gifts__box-hint" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+              <polygon points="8,1 15,8 8,15 1,8" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            </svg>
+            Ouvrir
+          </p>
+        </button>
+      </div>
+
+      <!-- Accordéon des modes de paiement — état ouvert -->
+      <div class="gifts__reveal" id="gifts-reveal" aria-hidden="true">
+        <div class="gifts__reveal-inner">
+
+          <div class="gifts__accordion">
+
+            <!-- Virement bancaire -->
+            <div class="gifts__item">
+              <button class="gifts__trigger" aria-expanded="false">
+                <div class="gifts__trigger-left">
+                  <div class="gifts__trigger-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                      <rect x="2" y="10" width="20" height="11" rx="1" stroke="currentColor" stroke-width="1.1"/>
+                      <path d="M2 13.5h20" stroke="currentColor" stroke-width="1"/>
+                      <path d="M6 10V8M10 10V8M14 10V8M18 10V8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                      <path d="M2 10L12 3l10 7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="gifts__trigger-text">
+                    <span class="gifts__trigger-label">Europe &amp; International</span>
+                    <span class="gifts__trigger-title">Virement bancaire</span>
+                  </div>
+                </div>
+                <div class="gifts__trigger-caret" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </button>
+              <div class="gifts__body">
+                <div class="gifts__body-inner">
+                  <p class="gifts__rib-note">
+                    Pour votre sécurité et la nôtre, les coordonnées bancaires sont transmises en privé.
+                    Laissez-nous vos coordonnées et nous vous recontacterons très vite.
+                  </p>
+                  <div class="gifts__request-form" id="virement-form">
+                    <input class="gifts__request-input" type="text" id="virement-name" placeholder="Votre prénom et nom" autocomplete="name" />
+                    <input class="gifts__request-input" type="text" id="virement-contact" placeholder="E-mail ou téléphone" autocomplete="email" />
+                    <button class="gifts__request-btn" id="virement-submit">
+                      Envoyer ma demande
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                  <p class="gifts__request-confirm" id="virement-confirm">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1"/><path d="M4.5 7l2 2 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Demande envoyée — nous vous contacterons bientôt avec les coordonnées.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Airtel Money -->
+            <div class="gifts__item">
+              <button class="gifts__trigger" aria-expanded="false">
+                <div class="gifts__trigger-left">
+                  <div class="gifts__trigger-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                      <rect x="7" y="1" width="10" height="22" rx="2.5" stroke="currentColor" stroke-width="1.1"/>
+                      <path d="M10 4.5h4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                      <circle cx="12" cy="20" r="1.2" fill="currentColor" opacity="0.45"/>
+                      <path d="M9 11c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="gifts__trigger-text">
+                    <span class="gifts__trigger-label">Mobile Money · Gabon</span>
+                    <span class="gifts__trigger-title">Airtel Money</span>
+                  </div>
+                </div>
+                <div class="gifts__trigger-caret" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </button>
+              <div class="gifts__body">
+                <div class="gifts__body-inner">
+                  <div class="gifts__rib">
+                    <div class="gifts__rib-row">
+                      <span class="gifts__rib-key">Numéro</span>
+                      <span class="gifts__rib-val" id="copy-airtel">+241 66 23 72 05</span>
+                    </div>
+                    <div class="gifts__rib-row">
+                      <span class="gifts__rib-key">Nom</span>
+                      <span class="gifts__rib-val">Sylvie Essongue épouse Ogandaga</span>
+                    </div>
+                    <div class="gifts__rib-row">
+                      <span class="gifts__rib-key">Réseau</span>
+                      <span class="gifts__rib-val">Airtel Gabon</span>
+                    </div>
+                  </div>
+                  <button class="gifts__copy-btn" data-copy-id="copy-airtel" data-label="Copier le numéro">
+                    <svg width="12" height="12" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M9 4V2.5A1.5 1.5 0 0 0 7.5 1H2.5A1.5 1.5 0 0 0 1 2.5V7.5A1.5 1.5 0 0 0 2.5 9H4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+                    Copier le numéro
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Moov Money -->
+            <div class="gifts__item">
+              <button class="gifts__trigger" aria-expanded="false">
+                <div class="gifts__trigger-left">
+                  <div class="gifts__trigger-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                      <rect x="7" y="1" width="10" height="22" rx="2.5" stroke="currentColor" stroke-width="1.1"/>
+                      <path d="M10 4.5h4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                      <circle cx="12" cy="20" r="1.2" fill="currentColor" opacity="0.45"/>
+                      <path d="M7.5 12c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="gifts__trigger-text">
+                    <span class="gifts__trigger-label">Mobile Money · Côte d'Ivoire</span>
+                    <span class="gifts__trigger-title">Wave</span>
+                  </div>
+                </div>
+                <div class="gifts__trigger-caret" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </button>
+              <div class="gifts__body">
+                <div class="gifts__body-inner">
+                  <div class="gifts__rib">
+                    <div class="gifts__rib-row">
+                      <span class="gifts__rib-key">Numéro</span>
+                      <span class="gifts__rib-val" id="copy-wave">+225 05 00 86 28 16</span>
+                    </div>
+                    <div class="gifts__rib-row">
+                      <span class="gifts__rib-key">Nom</span>
+                      <span class="gifts__rib-val">MOUGOULA Isaac Désiré</span>
+                    </div>
+                    <div class="gifts__rib-row">
+                      <span class="gifts__rib-key">Réseau</span>
+                      <span class="gifts__rib-val">Wave</span>
+                    </div>
+                  </div>
+                  <button class="gifts__copy-btn" data-copy-id="copy-wave" data-label="Copier le numéro">
+                    <svg width="12" height="12" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M9 4V2.5A1.5 1.5 0 0 0 7.5 1H2.5A1.5 1.5 0 0 0 1 2.5V7.5A1.5 1.5 0 0 0 2.5 9H4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+                    Copier le numéro
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Note urne -->
+          <p class="gifts__urne">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            Une urne sera également disponible sur place lors des cérémonies.
+          </p>
+
+          <!-- Refermer -->
+          <button class="gifts__reclose" id="gifts-reclose">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 13V1M1 7l6-6 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Refermer
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONVIVES — Chapitre IX
+  ============================================================ -->
+  <section class="convives" id="convives" data-reveal>
+    <div class="convives__inner">
+
+      <div class="section__head">
+        <p class="section__eyebrow">Chapitre IX</p>
+        <h2 class="section__title">La Constellation <em>des Convives</em></h2>
+        <p class="section__lead">
+          Des quatre coins du monde, ils convergent vers Libreville.
+        </p>
+      </div>
+
+      <div class="convives__map-wrap">
+        <div id="convives-map" class="convives__map"
+             role="img"
+             aria-label="Carte mondiale des villes d'origine des invités convergeant vers Libreville, Gabon">
+        </div>
+      </div>
+
+      <div class="convives__stats">
+        <div class="convives__stat">
+          <span class="convives__num" id="convives-total">—</span>
+          <span class="convives__lbl">convives</span>
+        </div>
+        <span class="convives__sep" aria-hidden="true">◇</span>
+        <div class="convives__stat">
+          <span class="convives__num" id="convives-countries-count">—</span>
+          <span class="convives__lbl">pays représentés</span>
+        </div>
+        <span class="convives__sep" aria-hidden="true">◇</span>
+        <div class="convives__stat">
+          <span class="convives__num" id="convives-cities-count">—</span>
+          <span class="convives__lbl">villes d'origine</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" id="footer">
+
+    <div class="footer__motif" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="60">
+        <defs>
+          <pattern id="footer-pattern" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+            <polygon points="14,2 26,14 14,26 2,14" fill="none" stroke="currentColor" stroke-width="0.6"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="60" fill="url(#footer-pattern)"/>
+      </svg>
+    </div>
+
+    <div class="footer__inner">
+      <div class="footer__names">Emma &amp; Isaac</div>
+      <div class="footer__diamond" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none"><polygon points="8,1 15,8 8,15 1,8" stroke="currentColor" stroke-width="1"/></svg>
+      </div>
+      <p class="footer__date">17 &amp; 19 Décembre 2026 · Libreville, Gabon</p>
+      <p class="footer__made">Fait avec amour, offert de tout cœur.</p>
+    </div>
+
+  </footer>
+
+  <!-- ► Colle ici l'URL de ton Google Apps Script après déploiement ◄ -->
+  <script>
+    window.RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzcAFUsT6JvZokjjmmKrqFW4FqHifMZgMor0O1QqbrMg9ntCb2rnfcNkGN5HcOLMT-7/exec';
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
