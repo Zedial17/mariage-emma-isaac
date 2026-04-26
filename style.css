@@ -61,7 +61,10 @@ img { display: block; max-width: 100%; }
    CURSEUR PERSONNALISÉ — diamant + dot
    cursor: none exclu des champs de saisie (texte natif préservé)
 ============================================================ */
+.cursor, .cursor-dot { display: none; }
+
 @media (pointer: fine) {
+  .cursor, .cursor-dot { display: block; }
   body { cursor: none; }
   a, button, [role="button"], label, select { cursor: none; }
   /* inputs et textarea conservent le curseur texte natif */
