@@ -3879,20 +3879,16 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--terracotta);
-  background: none;
-  border: 1px solid rgba(196, 98, 45, 0.35);
+  color: var(--ivory);
+  background: var(--terracotta);
+  border: 1px solid var(--terracotta);
   padding: 0.55rem 1.1rem;
   cursor: pointer;
   border-radius: 999px;
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  transition: opacity 0.2s;
 }
 
-.gifts__request-btn:hover {
-  background: var(--terracotta);
-  color: var(--ivory);
-  border-color: var(--terracotta);
-}
+.gifts__request-btn:hover { opacity: 0.88; }
 
 .gifts__request-btn:disabled {
   opacity: 0.5;
