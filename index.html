@@ -255,19 +255,8 @@
       <h2 class="section__title">Deux jours, <em>trois cérémonies</em></h2>
     </div>
 
-    <!-- Verrou programme -->
-    <div class="chapter-lock" data-section="programme">
-      <div class="chapter-lock__icon">🔒</div>
-      <p class="chapter-lock__text">Ce chapitre est réservé à nos invités</p>
-      <div class="chapter-lock__form">
-        <input class="chapter-lock__input" type="text" placeholder="Code d'accès" />
-        <button class="chapter-lock__btn">Accéder</button>
-      </div>
-      <p class="chapter-lock__error">Code incorrect, réessayez.</p>
-    </div>
-
-    <!-- Contenu verrouillé -->
-    <div class="chapter-locked" data-section="programme">
+    <!-- Contenu programme (public) -->
+    <div class="chapter-locked" data-section="programme" style="display:block">
 
     <!-- Toggle Jour 1 / Jour 2 -->
     <div class="program__toggle" role="tablist" aria-label="Sélection du jour">
@@ -402,13 +391,30 @@
 
     <!-- Verrou lieux -->
     <div class="chapter-lock" data-section="lieux">
-      <div class="chapter-lock__icon">🔒</div>
+      <div class="lock__visual">
+        <svg class="lock__padlock" viewBox="0 0 100 120" fill="none" aria-hidden="true">
+          <g class="lock__shackle-group">
+            <path class="lock__shackle" d="M28 56 L28 34 Q28 11 50 11 Q72 11 72 34 L72 56"
+                  stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+          </g>
+          <rect class="lock__body" x="10" y="52" width="80" height="60" rx="13"
+                fill="currentColor" fill-opacity="0.10" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="50" cy="79" r="9" fill="currentColor" fill-opacity="0.65"/>
+          <rect x="46" y="81" width="8" height="15" rx="3" fill="currentColor" fill-opacity="0.65"/>
+        </svg>
+        <svg class="lock__eye" viewBox="0 0 120 50" fill="none" aria-hidden="true">
+          <path d="M6 25 Q60 2 114 25 Q60 48 6 25Z" fill="rgba(196,98,45,0.07)" stroke="rgba(196,98,45,0.38)" stroke-width="1.5"/>
+          <circle class="eye__iris" cx="60" cy="25" r="12" fill="rgba(196,98,45,0.22)"/>
+          <circle class="eye__pupil" cx="60" cy="25" r="7" fill="rgba(196,98,45,0.88)"/>
+          <circle class="eye__shine" cx="63.5" cy="22" r="2.5" fill="rgba(245,236,215,0.75)"/>
+        </svg>
+      </div>
       <p class="chapter-lock__text">Ce chapitre est réservé à nos invités</p>
       <div class="chapter-lock__form">
-        <input class="chapter-lock__input" type="text" placeholder="Code d'accès" />
-        <button class="chapter-lock__btn">Accéder</button>
+        <input class="chapter-lock__input" type="password" placeholder="Code d'accès" autocomplete="off"/>
+        <button class="chapter-lock__btn">Accéder →</button>
       </div>
-      <p class="chapter-lock__error">Code incorrect, réessayez.</p>
+      <p class="chapter-lock__error">Code incorrect — réessayez.</p>
     </div>
 
     <!-- Contenu verrouillé -->

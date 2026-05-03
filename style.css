@@ -162,10 +162,22 @@ img { display: block; max-width: 100%; }
   text-transform: uppercase;
   text-decoration: none;
   flex-shrink: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s ease, max-width 0.3s ease, margin 0.3s ease;
+  max-width: 120px;
+  overflow: hidden;
 }
 
 .nav__brand:hover { opacity: 0.75; }
+
+/* Mobile : cache le brand au scroll, garde seulement le burger */
+@media (max-width: 767px) {
+  .nav--scrolled .nav__brand {
+    opacity: 0;
+    max-width: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+}
 
 .nav__links {
   display: flex;
@@ -4169,6 +4181,41 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* ============================================================
    CHAPTER LOCK — Verrou de section
 ============================================================ */
+
+/* Keyframes */
+@keyframes lock-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  30%       { transform: translateY(-8px) rotate(-1.5deg); }
+  60%       { transform: translateY(-4px) rotate(1deg); }
+}
+@keyframes lock-shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-7px) rotate(-3deg); }
+  30%       { transform: translateX(7px) rotate(3deg); }
+  45%       { transform: translateX(-5px) rotate(-2deg); }
+  60%       { transform: translateX(5px) rotate(2deg); }
+  75%       { transform: translateX(-2px); }
+}
+@keyframes lock-unlock {
+  0%   { transform: translateY(0) rotate(0deg); }
+  40%  { transform: translateY(-18px) rotate(25deg); }
+  70%  { transform: translateY(-18px) rotate(25deg); opacity: 1; }
+  100% { transform: translateY(-30px) rotate(35deg); opacity: 0; }
+}
+@keyframes lock-dissolve {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.85); filter: blur(6px); }
+}
+@keyframes content-reveal {
+  0%   { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes eye-blink {
+  0%, 100% { clip-path: inset(0% 0% 0% 0% round 50%); }
+  48%, 52%  { clip-path: inset(49% 0% 49% 0% round 50%); }
+}
+
+/* Layout */
 .chapter-lock {
   display: flex;
   flex-direction: column;
@@ -4177,7 +4224,55 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   padding: 3rem 2rem;
   text-align: center;
 }
-.chapter-lock__icon { font-size: 2.5rem; }
+
+/* Visual zone: padlock + eye stacked */
+.lock__visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Padlock SVG */
+.lock__padlock {
+  width: 72px;
+  height: auto;
+  color: var(--terracotta);
+  animation: lock-float 3.8s ease-in-out infinite;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 6px 18px rgba(196,98,45,0.25));
+}
+.lock__padlock.is-shaking {
+  animation: lock-shake 0.5s ease-in-out;
+}
+.lock__padlock.is-unlocking {
+  animation: lock-unlock 0.7s ease-in forwards;
+}
+
+/* Shackle lift on unlock */
+.lock__shackle-group {
+  transform-origin: 50px 56px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Eye SVG */
+.lock__eye {
+  width: 80px;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: eye-blink 4s ease-in-out infinite 1s;
+}
+.lock__eye.is-watching {
+  opacity: 1;
+}
+
+/* Eye pupil tracking via CSS var set by JS */
+.eye__iris, .eye__pupil, .eye__shine {
+  transition: cx 0.12s ease, cy 0.12s ease;
+}
+
 .chapter-lock__text {
   font-family: var(--serif);
   font-style: italic;
@@ -4204,6 +4299,10 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   outline: none;
   width: 160px;
   border-radius: 999px;
+  transition: border-color 0.2s;
+}
+.chapter-lock__input:focus {
+  border-color: rgba(196,98,45,0.7);
 }
 .chapter-lock__btn {
   font-family: var(--sans);
@@ -4217,7 +4316,9 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   padding: 0.65rem 1.4rem;
   cursor: pointer;
   border-radius: 999px;
+  transition: opacity 0.2s;
 }
+.chapter-lock__btn:hover { opacity: 0.88; }
 .chapter-lock__error {
   display: none;
   font-size: 0.75rem;
@@ -4226,6 +4327,9 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 .chapter-lock__error.is-visible { display: block; }
 .chapter-locked { display: none; }
+.chapter-locked.is-revealed {
+  animation: content-reveal 0.6s ease forwards;
+}
 
 /* ============================================================
    RADIO BUTTONS — champs RSVP

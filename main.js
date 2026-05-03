@@ -883,30 +883,122 @@
   }
 })();
 
-// ── Chapter Lock — verrou de section ─────────────────────────────────────
+// ── Chapter Lock — animations + code EI2026 ─────────────────────────────
 (function chapterLock() {
   var CODE = 'EI2026';
-  document.querySelectorAll('.chapter-lock').forEach(function(lock) {
-    var sectionId = lock.dataset.section;
-    var content = document.querySelector('.chapter-locked[data-section="' + sectionId + '"]');
-    var input = lock.querySelector('.chapter-lock__input');
-    var btn = lock.querySelector('.chapter-lock__btn');
-    var err = lock.querySelector('.chapter-lock__error');
-    // Vérifier sessionStorage
-    if (sessionStorage.getItem('unlocked_' + sectionId) === '1') {
+
+  /* Déverrouiller une section avec animation */
+  function unlockOne(lock, content, onDone) {
+    var padlock = lock.querySelector('.lock__padlock');
+    var eye     = lock.querySelector('.lock__eye');
+
+    // 1. Œil se ferme
+    if (eye) eye.classList.remove('is-watching');
+
+    // 2. Animation déverouillage du cadenas
+    if (padlock) {
+      padlock.classList.remove('is-shaking');
+      padlock.classList.add('is-unlocking');
+    }
+
+    // 3. Après 650ms : masquer le verrou, révéler le contenu
+    setTimeout(function() {
+      // Fondu du bloc lock
+      lock.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      lock.style.opacity = '0';
+      lock.style.transform = 'scale(0.92)';
+
+      setTimeout(function() {
+        lock.style.display = 'none';
+        if (content) {
+          content.style.display = 'block';
+          content.classList.add('is-revealed');
+        }
+        if (onDone) onDone();
+      }, 380);
+    }, 650);
+  }
+
+  function unlockAll() {
+    document.querySelectorAll('.chapter-lock').forEach(function(lock) {
+      var sectionId = lock.dataset.section;
+      var content   = document.querySelector('.chapter-locked[data-section="' + sectionId + '"]');
+      sessionStorage.setItem('unlocked_' + sectionId, '1');
+      unlockOne(lock, content);
+    });
+  }
+
+  /* Restaurer si déjà déverrouillé en session */
+  if (sessionStorage.getItem('unlocked_lieux') === '1') {
+    document.querySelectorAll('.chapter-lock').forEach(function(lock) {
+      var sectionId = lock.dataset.section;
+      var content   = document.querySelector('.chapter-locked[data-section="' + sectionId + '"]');
       lock.style.display = 'none';
       if (content) content.style.display = 'block';
+    });
+    return;
+  }
+
+  /* Watcher : pupille suit la frappe */
+  function movePupil(eyeSvg, progress) {
+    // progress 0→1 selon la longueur du texte saisi
+    var pupil  = eyeSvg.querySelector('.eye__pupil');
+    var iris   = eyeSvg.querySelector('.eye__iris');
+    var shine  = eyeSvg.querySelector('.eye__shine');
+    if (!pupil) return;
+    // déplacement horizontal léger : -8px à +8px
+    var dx = (progress - 0.5) * 16;
+    pupil.setAttribute('cx', 60 + dx);
+    if (iris)  iris.setAttribute('cx', 60 + dx * 0.5);
+    if (shine) shine.setAttribute('cx', 63.5 + dx * 0.4);
+  }
+
+  document.querySelectorAll('.chapter-lock').forEach(function(lock) {
+    var input   = lock.querySelector('.chapter-lock__input');
+    var btn     = lock.querySelector('.chapter-lock__btn');
+    var err     = lock.querySelector('.chapter-lock__error');
+    var padlock = lock.querySelector('.lock__padlock');
+    var eye     = lock.querySelector('.lock__eye');
+
+    /* Œil s'ouvre au focus sur le champ */
+    if (input && eye) {
+      input.addEventListener('focus', function() {
+        eye.classList.add('is-watching');
+      });
+      input.addEventListener('blur', function() {
+        if (!input.value) eye.classList.remove('is-watching');
+      });
+
+      /* Pupille suit la frappe */
+      input.addEventListener('input', function() {
+        var len      = input.value.length;
+        var maxLen   = CODE.length;
+        var progress = Math.min(len / maxLen, 1);
+        movePupil(eye, progress);
+        // Efface le message d'erreur si l'user retape
+        if (err) err.classList.remove('is-visible');
+      });
     }
+
     if (btn) btn.addEventListener('click', function() {
       if (input.value.trim().toUpperCase() === CODE) {
-        sessionStorage.setItem('unlocked_' + sectionId, '1');
-        lock.style.display = 'none';
-        if (content) content.style.display = 'block';
+        unlockAll();
       } else {
+        /* Mauvais code : shake + erreur */
+        if (padlock) {
+          padlock.classList.remove('is-shaking');
+          void padlock.offsetWidth; // reflow pour relancer l'animation
+          padlock.classList.add('is-shaking');
+          padlock.addEventListener('animationend', function() {
+            padlock.classList.remove('is-shaking');
+          }, { once: true });
+        }
         if (err) err.classList.add('is-visible');
         input.value = '';
+        if (eye) movePupil(eye, 0.5); // pupille recentrée
       }
     });
+
     if (input) input.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') btn.click();
     });
