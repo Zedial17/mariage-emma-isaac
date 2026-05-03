@@ -56,6 +56,101 @@
   setInterval(tick, 1000);
 })();
 
+// ── Nav Brand GIF — change selon le chapitre visible ──────────────────────
+(function navBrandGif() {
+  var brand    = document.getElementById('nav-brand');
+  var brandGif = document.getElementById('nav-brand-gif');
+  var nav      = document.getElementById('nav');
+  if (!brand || !brandGif || !nav) return;
+
+  var COUPLE = 'img/nav-couple.gif';
+  var GROOM  = 'img/nav-groom.gif';
+
+  var sectionGifs = {
+    'home':      COUPLE,
+    'histoire':  COUPLE,
+    'programme': GROOM,
+    'lieu':      COUPLE,
+    'dresscode': GROOM,
+    'rsvp':      COUPLE,
+    'faq':       GROOM,
+    'cadeaux':   GROOM,
+  };
+
+  var currentSection = 'home';
+  var isScrolled = false;
+
+  // Précharger
+  [COUPLE, GROOM].forEach(function(s) { new Image().src = s; });
+  brandGif.src = COUPLE;
+
+  function applyGif() {
+    if (!isScrolled) {
+      brand.classList.remove('nav__brand--gif');
+      return;
+    }
+    brand.classList.add('nav__brand--gif');
+  }
+
+  function updateGif(sectionId) {
+    var newSrc = sectionGifs[sectionId] || COUPLE;
+    if (brandGif.getAttribute('data-current') === newSrc) return;
+    brandGif.setAttribute('data-current', newSrc);
+
+    // Fondu
+    brandGif.style.opacity = '0';
+    setTimeout(function() {
+      brandGif.src = newSrc;
+      brandGif.style.opacity = '1';
+    }, 180);
+  }
+
+  // Écouter le scroll pour activer/désactiver le mode GIF
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY > 60;
+    if (scrolled !== isScrolled) {
+      isScrolled = scrolled;
+      applyGif();
+    }
+  }, { passive: true });
+
+  // IntersectionObserver sur les sections
+  var sections = document.querySelectorAll('section[id]');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        currentSection = e.target.id;
+        if (isScrolled) updateGif(currentSection);
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
+
+  sections.forEach(function(s) { observer.observe(s); });
+})();
+
+// ── GIFs mariés — apparition au scroll, mobile uniquement ─────────────────
+(function heroGifs() {
+  var gifs = document.querySelector('.hero__gifs');
+  if (!gifs) return;
+
+  // Uniquement sur mobile
+  if (window.matchMedia('(min-width: 768px)').matches) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        gifs.classList.add('is-visible');
+      } else {
+        // Disparaît doucement quand on scrolle au-delà du hero
+        gifs.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  var hero = document.getElementById('home') || document.querySelector('.hero');
+  if (hero) observer.observe(hero);
+})();
+
 // ── Navigation — scroll + burger ──────────────────────────────────────────
 (function nav() {
   var el     = document.getElementById('nav');
