@@ -514,8 +514,11 @@ img { display: block; max-width: 100%; }
   color: var(--off-black);
   margin-bottom: 1.5rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.1em;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.25em;
+  white-space: nowrap;
 }
 
 .hero__amp {
