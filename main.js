@@ -50,6 +50,16 @@
       var s = values[i];
       u.cols.forEach(function (inner, j) { roll(inner, s[j]); });
     });
+
+    // Minuteur compact dans la nav (mobile)
+    var navDays  = document.getElementById('nav-timer-days');
+    var navHours = document.getElementById('nav-timer-hours');
+    var navMin   = document.getElementById('nav-timer-min');
+    var navSec   = document.getElementById('nav-timer-sec');
+    if (navDays)  navDays.textContent  = days;
+    if (navHours) navHours.textContent = pad(hours, 2);
+    if (navMin)   navMin.textContent   = pad(min, 2);
+    if (navSec)   navSec.textContent   = pad(sec, 2);
   }
 
   tick();

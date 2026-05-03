@@ -240,6 +240,46 @@ img { display: block; max-width: 100%; }
 }
 
 /* Burger — mobile uniquement */
+/* ── Minuteur compact dans la nav (mobile au scroll) ── */
+.nav__timer {
+  display: none; /* caché par défaut sur tous les écrans */
+  align-items: baseline;
+  gap: 1px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.nav__timer-num {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--terracotta);
+  line-height: 1;
+}
+.nav__timer-lbl {
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+}
+.nav__timer-sep {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  margin: 0 1px;
+}
+
+/* Visible uniquement sur mobile ET quand la nav est scrollée */
+@media (max-width: 767px) {
+  .nav--scrolled .nav__timer {
+    display: flex;
+    opacity: 0.45;
+  }
+}
+
 .nav__burger {
   display: none;
   flex-direction: column;
@@ -948,10 +988,10 @@ img { display: block; max-width: 100%; }
 }
 
 .story__title {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.55rem;
   font-weight: 300;
-  color: var(--ivory);
+  color: var(--text-muted);
   line-height: 1.2;
   margin-bottom: 0.85rem;
   letter-spacing: -0.01em;
@@ -1313,7 +1353,7 @@ img { display: block; max-width: 100%; }
 .lieu .section__title { color: var(--ivory); }
 .lieu .section__eyebrow { color: var(--terracotta); }
 .lieu .section__eyebrow::before { color: var(--terracotta); }
-.lieu .section__lead { color: rgba(245, 236, 215, 0.65); }
+.lieu .section__lead { color: var(--text-muted); }
 .lieu .title-wipe-inner { color: var(--ivory); }
 
 .lieu__header {
@@ -2980,7 +3020,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* Sur fond sombre */
 .section__title--light { color: var(--ivory); }
 .section__title--light em { color: var(--terracotta); }
-.section__lead--light { color: rgba(245, 236, 215, 0.55); }
+.section__lead--light { color: var(--text-muted); }
 .section__eyebrow--light { color: var(--terracotta); }
 .section__eyebrow--light::before { color: var(--terracotta); }
 
@@ -3511,10 +3551,10 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .gifts__intro {
   max-width: 540px;
   margin: 0 auto 4rem;
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-style: italic;
-  color: rgba(245, 236, 215, 0.55);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-style: normal;
+  color: var(--text-muted);
   line-height: 1.9;
 }
 
@@ -4006,7 +4046,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 
 .convives .section__lead {
-  color: rgba(245, 236, 215, 0.65);
+  color: var(--text-muted);
 }
 
 .convives .title-wipe-inner {
@@ -4313,8 +4353,8 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 
 .chapter-lock__text {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--sans);
+  font-style: normal;
   font-size: 1rem;
   color: var(--text-muted);
   line-height: 1.6;
