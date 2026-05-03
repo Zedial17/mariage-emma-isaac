@@ -41,7 +41,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 72px;
+  scroll-padding-top: 96px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -128,32 +128,38 @@ img { display: block; max-width: 100%; }
 ============================================================ */
 .nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1240px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3rem;
-  height: 64px;
-  transition: background 0.35s, box-shadow 0.35s, backdrop-filter 0.35s;
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: rgba(245, 236, 215, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: rgba(0,0,0,0.06) 0px 4px 24px;
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 /* Scrolled state — ajouté via JS */
-.nav.nav--scrolled {
-  background: rgba(28, 20, 16, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+.nav.nav--scrolled,
+.nav.is-scrolled {
+  background: rgba(245, 236, 215, 0.97);
+  box-shadow: rgba(0,0,0,0.10) 0px 8px 32px;
 }
 
 .nav__brand {
   font-family: var(--serif);
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 400;
-  color: var(--ivory);
-  letter-spacing: 0.08em;
+  color: var(--off-black);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   text-decoration: none;
   flex-shrink: 0;
   transition: opacity 0.2s;
@@ -174,25 +180,28 @@ img { display: block; max-width: 100%; }
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(245, 236, 215, 0.75);
+  color: var(--off-black);
   text-decoration: none;
   transition: color 0.2s;
   white-space: nowrap;
 }
 
-.nav__link:hover { color: var(--ivory); }
+.nav__link:hover,
+.nav__link.is-active { color: var(--terracotta); }
 
 .nav__link--cta {
-  color: var(--ivory);
-  border: 1px solid rgba(196, 98, 45, 0.6);
-  padding: 0.45rem 1.1rem;
-  transition: background 0.2s, border-color 0.2s;
+  background: var(--off-black);
+  color: var(--ivory) !important;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  transition: background 0.2s;
 }
 
 .nav__link--cta:hover {
   background: var(--terracotta);
-  border-color: var(--terracotta);
-  color: var(--ivory);
+  color: var(--ivory) !important;
 }
 
 /* Burger — mobile uniquement */
@@ -210,7 +219,7 @@ img { display: block; max-width: 100%; }
   display: block;
   width: 22px;
   height: 1.5px;
-  background: var(--ivory);
+  background: var(--off-black);
   transition: transform 0.25s, opacity 0.25s;
 }
 
@@ -218,18 +227,22 @@ img { display: block; max-width: 100%; }
 .nav__burger.open span:nth-child(2) { opacity: 0; }
 .nav__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-.nav__link--active { color: var(--ivory); }
+.nav__link--active { color: var(--terracotta); }
 
 /* ── Nav intermédiaire : réduction du gap avant de passer au burger ── */
 @media (max-width: 1080px) {
-  .nav { padding: 0 2rem; }
+  .nav { padding: 14px 24px; }
   .nav__links { gap: 1.25rem; }
   .nav__link { font-size: 0.63rem; }
 }
 
 /* ── Nav mobile : burger + menu plein écran ── */
 @media (max-width: 768px) {
-  .nav { padding: 0 1.25rem; }
+  .nav {
+    top: 12px;
+    width: calc(100% - 24px);
+    padding: 12px 20px;
+  }
 
   .nav__burger { display: flex; }
 
@@ -350,8 +363,8 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    HERO
 ============================================================ */
-/* Décale les ancres pour la nav fixe */
-:target { scroll-margin-top: 72px; }
+/* Décale les ancres pour la nav pill fixe */
+:target { scroll-margin-top: 96px; }
 
 .hero {
   display: grid;
@@ -363,6 +376,7 @@ img { display: block; max-width: 100%; }
 .hero__visual {
   position: relative;
   overflow: hidden;
+  border-radius: 0 40px 40px 0;
   animation: slideInLeft 0.9s var(--ease-out) forwards;
 }
 
@@ -739,6 +753,7 @@ img { display: block; max-width: 100%; }
   position: relative;
   overflow: hidden;
   color: var(--ivory);
+  border-radius: 40px 40px 0 0;
 }
 
 /* Texture Myènè — losanges en transparence ivoire */
@@ -1238,6 +1253,7 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(145deg, #1C1208 0%, #13100A 50%, #0F0C07 100%);
   position: relative;
   overflow: hidden;
+  border-radius: 40px 40px 0 0;
 }
 
 .lieu::before {
@@ -1304,8 +1320,13 @@ img { display: block; max-width: 100%; }
 .lieu__card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   overflow: hidden;
-  transition: border-color 0.3s var(--ease-out);
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.lieu__card:hover {
+  box-shadow: rgba(0,0,0,0.08) 0px 24px 48px;
 }
 
 .lieu__card:hover {
@@ -1561,6 +1582,8 @@ img { display: block; max-width: 100%; }
   padding: var(--section-py) 0;
   background: linear-gradient(155deg, #1C1208 0%, #13100A 55%, #0F0C07 100%);
   position: relative;
+  border-radius: 40px 40px 0 0;
+  overflow: hidden;
 }
 
 .dresscode .section__title { color: var(--ivory); }
@@ -1621,6 +1644,7 @@ img { display: block; max-width: 100%; }
   padding: 2.5rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
 }
 
 .dresscode__day-label {
@@ -1977,6 +2001,8 @@ img { display: block; max-width: 100%; }
   padding: 0;
   text-align: center;
   position: relative;
+  border-radius: 40px 40px 0 0;
+  overflow: hidden;
 }
 
 .footer__motif {
@@ -2421,6 +2447,8 @@ img { display: block; max-width: 100%; }
 
 .faq__item {
   border-bottom: 1px solid rgba(107, 58, 42, 0.18);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .faq__item:first-child { border-top: 1px solid rgba(107, 58, 42, 0.18); }
@@ -2724,6 +2752,7 @@ img { display: block; max-width: 100%; }
   background: transparent;
   color: var(--text-muted);
   border: 1px solid var(--ivory-dk);
+  border-radius: 999px;
 }
 
 .wiz-btn--prev:hover { background: var(--ivory); }
@@ -2733,6 +2762,7 @@ img { display: block; max-width: 100%; }
   background: var(--terracotta);
   color: var(--ivory);
   margin-left: auto;
+  border-radius: 999px;
 }
 
 .wiz-btn--next:hover { background: var(--terracotta-dk); }
@@ -2784,9 +2814,10 @@ img { display: block; max-width: 100%; }
 @media (max-width: 768px) {
   .mobile-rsvp-cta {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    width: calc(100% - 48px);
     z-index: 90;
     background: var(--terracotta);
     color: var(--ivory);
@@ -2797,14 +2828,16 @@ img { display: block; max-width: 100%; }
     text-transform: uppercase;
     text-align: center;
     padding: 1.1rem 2rem;
-    transform: translateY(100%);
+    border-radius: 999px;
     transition: transform 0.4s var(--ease-out);
     text-decoration: none;
     display: block;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.22);
   }
 
-  .mobile-rsvp-cta.is-visible { transform: translateY(0); }
+  .mobile-rsvp-cta.is-visible {
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 @media (min-width: 769px) { .mobile-rsvp-cta { display: none; } }
@@ -2817,7 +2850,28 @@ img { display: block; max-width: 100%; }
   max-width: 620px;
   margin: 0 auto 5.5rem;
   padding: 0 2rem;
+  position: relative;
 }
+
+/* Ghost watermark Mastercard */
+.section__head::before {
+  content: attr(data-watermark);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: clamp(5rem, 14vw, 12rem);
+  font-weight: 300;
+  color: rgba(196, 98, 45, 0.06);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.section__head > * { position: relative; z-index: 1; }
 
 .section__eyebrow {
   font-family: var(--sans);
@@ -2851,6 +2905,10 @@ img { display: block; max-width: 100%; }
   margin-bottom: 1.25rem;
   color: var(--off-black);
 }
+
+/* Mastercard — lettre-espacement négatif sur les headings */
+h1, h2, h3 { letter-spacing: -0.02em; }
+.section__eyebrow { letter-spacing: 0.38em; } /* keep eyebrow positive tracking */
 
 .section__title em {
   font-style: italic;
@@ -3076,6 +3134,7 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(155deg, #1C1208 0%, #13100A 55%, #0F0C07 100%);
   position: relative;
   overflow: hidden;
+  border-radius: 40px 40px 0 0;
 }
 
 .rsvp::before {
@@ -3129,6 +3188,8 @@ img { display: block; max-width: 100%; }
   background: rgba(245, 236, 215, 0.03);
   border: 1px solid rgba(245, 236, 215, 0.09);
   padding: 3rem;
+  border-radius: 20px;
+  box-shadow: rgba(0,0,0,0.08) 0px 24px 48px;
 }
 
 @media (max-width: 768px) {
@@ -3377,6 +3438,8 @@ img { display: block; max-width: 100%; }
   padding: var(--section-py) 0;
   background: linear-gradient(155deg, #1C1208 0%, #13100A 55%, #100D08 100%);
   position: relative;
+  border-radius: 40px 40px 0 0;
+  overflow: hidden;
 }
 
 .gifts::before {
@@ -3561,6 +3624,7 @@ img { display: block; max-width: 100%; }
   padding: 1.5rem 0;
   background: none;
   border: none;
+  border-radius: 16px;
   cursor: pointer;
   text-align: left;
   transition: opacity 0.2s;
@@ -3691,6 +3755,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(196, 98, 45, 0.35);
   padding: 0.55rem 1rem;
   cursor: pointer;
+  border-radius: 999px;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
@@ -3753,6 +3818,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(196, 98, 45, 0.35);
   padding: 0.55rem 1.1rem;
   cursor: pointer;
+  border-radius: 999px;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
@@ -3852,6 +3918,8 @@ img { display: block; max-width: 100%; }
   color: var(--ivory);
   padding: var(--section-py) 0;
   position: relative;
+  border-radius: 40px 40px 0 0;
+  overflow: hidden;
 }
 
 .convives::before {
