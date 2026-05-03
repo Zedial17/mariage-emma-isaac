@@ -187,13 +187,19 @@ img { display: block; max-width: 100%; }
 .nav__brand--gif .nav__brand-text { display: none; }
 .nav__brand--gif .nav__brand-gif  { display: block; }
 
-/* Mobile : cache le brand au scroll, garde seulement le burger */
+/* Mobile : au scroll, cache le texte E&I mais laisse passer le GIF */
 @media (max-width: 767px) {
-  .nav--scrolled .nav__brand {
+  .nav--scrolled .nav__brand-text {
     opacity: 0;
     max-width: 0;
+    overflow: hidden;
     margin: 0;
     pointer-events: none;
+  }
+  /* Le brand reste visible pour afficher le GIF */
+  .nav--scrolled .nav__brand {
+    opacity: 1;
+    max-width: 120px;
   }
 }
 
