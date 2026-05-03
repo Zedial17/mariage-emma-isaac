@@ -502,76 +502,9 @@
   });
   syncCompanions();
 
-  // ── Table de géolocalisation des villes (clés : minuscules sans accents) ──
-  var CITY_GEO = {
-    'paris':          { lat: 48.85,  lng:   2.35,  country: 'France'         },
-    'lyon':           { lat: 45.76,  lng:   4.83,  country: 'France'         },
-    'marseille':      { lat: 43.30,  lng:   5.37,  country: 'France'         },
-    'bordeaux':       { lat: 44.84,  lng:  -0.58,  country: 'France'         },
-    'toulouse':       { lat: 43.60,  lng:   1.44,  country: 'France'         },
-    'nice':           { lat: 43.71,  lng:   7.26,  country: 'France'         },
-    'nantes':         { lat: 47.22,  lng:  -1.55,  country: 'France'         },
-    'strasbourg':     { lat: 48.57,  lng:   7.75,  country: 'France'         },
-    'montpellier':    { lat: 43.61,  lng:   3.88,  country: 'France'         },
-    'rennes':         { lat: 48.11,  lng:  -1.68,  country: 'France'         },
-    'lille':          { lat: 50.63,  lng:   3.06,  country: 'France'         },
-    'grenoble':       { lat: 45.19,  lng:   5.72,  country: 'France'         },
-    'bruxelles':      { lat: 50.85,  lng:   4.35,  country: 'Belgique'       },
-    'brussels':       { lat: 50.85,  lng:   4.35,  country: 'Belgique'       },
-    'liege':          { lat: 50.63,  lng:   5.57,  country: 'Belgique'       },
-    'geneve':         { lat: 46.20,  lng:   6.14,  country: 'Suisse'         },
-    'geneva':         { lat: 46.20,  lng:   6.14,  country: 'Suisse'         },
-    'zurich':         { lat: 47.38,  lng:   8.54,  country: 'Suisse'         },
-    'berne':          { lat: 46.95,  lng:   7.45,  country: 'Suisse'         },
-    'dakar':          { lat: 14.72,  lng: -17.47,  country: 'Sénégal'        },
-    'abidjan':        { lat:  5.35,  lng:  -4.01,  country: "Côte d'Ivoire"  },
-    'douala':         { lat:  4.06,  lng:   9.70,  country: 'Cameroun'       },
-    'yaounde':        { lat:  3.87,  lng:  11.52,  country: 'Cameroun'       },
-    'brazzaville':    { lat: -4.27,  lng:  15.28,  country: 'Congo'          },
-    'pointe-noire':   { lat: -4.77,  lng:  11.86,  country: 'Congo'          },
-    'kinshasa':       { lat: -4.32,  lng:  15.32,  country: 'RD Congo'       },
-    'libreville':     { lat:  0.39,  lng:   9.45,  country: 'Gabon'          },
-    'port-gentil':    { lat: -0.72,  lng:   8.78,  country: 'Gabon'          },
-    'franceville':    { lat: -1.63,  lng:  13.58,  country: 'Gabon'          },
-    'accra':          { lat:  5.56,  lng:  -0.20,  country: 'Ghana'          },
-    'lagos':          { lat:  6.45,  lng:   3.40,  country: 'Nigeria'        },
-    'abuja':          { lat:  9.07,  lng:   7.40,  country: 'Nigeria'        },
-    'london':         { lat: 51.51,  lng:  -0.13,  country: 'Royaume-Uni'    },
-    'londres':        { lat: 51.51,  lng:  -0.13,  country: 'Royaume-Uni'    },
-    'madrid':         { lat: 40.42,  lng:  -3.70,  country: 'Espagne'        },
-    'new york':       { lat: 40.71,  lng: -74.01,  country: 'États-Unis'     },
-    'montreal':       { lat: 45.50,  lng: -73.57,  country: 'Canada'         },
-    'toronto':        { lat: 43.65,  lng: -79.38,  country: 'Canada'         },
-    'dubai':          { lat: 25.20,  lng:  55.27,  country: 'Émirats Arabes' },
-    'bangui':         { lat:  4.36,  lng:  18.55,  country: 'Centrafrique'   },
-    'bata':           { lat:  1.86,  lng:   9.77,  country: 'Guinée Éq.'     },
-    'malabo':         { lat:  3.75,  lng:   8.78,  country: 'Guinée Éq.'     },
-    'lome':           { lat:  6.14,  lng:   1.22,  country: 'Togo'           },
-    'cotonou':        { lat:  6.37,  lng:   2.42,  country: 'Bénin'          },
-    'bamako':         { lat: 12.65,  lng:  -8.00,  country: 'Mali'           },
-    'conakry':        { lat:  9.54,  lng: -13.68,  country: 'Guinée'         },
-  };
-
-  // Normalise une chaîne pour la recherche (minuscules + suppression des accents)
-  function normCity(s) {
-    return (s || '').trim().toLowerCase()
-      .replace(/[àâä]/g, 'a').replace(/[éèêë]/g, 'e')
-      .replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o')
-      .replace(/[ùûü]/g, 'u').replace(/ç/g, 'c').replace(/ñ/g, 'n');
-  }
-
-  // Cherche les coordonnées d'une ville (correspondance exacte puis partielle)
-  function lookupCity(ville) {
-    var key = normCity(ville);
-    if (!key) return {};
-    if (CITY_GEO[key]) return CITY_GEO[key];
-    for (var k in CITY_GEO) {
-      if (key.indexOf(k) === 0 || k.indexOf(key) === 0) return CITY_GEO[k];
-    }
-    return {};
-  }
-
   // ── Soumission ─────────────────────────────────────────────────────────────
+  // Les clés du payload correspondent EXACTEMENT au FIELD_MAP de l'Apps Script.
+  // Le géocodage (lat/lng/pays) est géré côté serveur par l'Apps Script via Nominatim.
   function submitRsvp() {
     next.disabled = true;
     next.textContent = 'Envoi…';
@@ -580,7 +513,7 @@
     var raw = {};
     form.querySelectorAll('input, textarea, select').forEach(function (el) {
       if (el.name) {
-        raw[el.name] = el.type === 'checkbox' ? (el.checked ? 'oui' : 'non') : el.value;
+        raw[el.name] = el.type === 'checkbox' ? el.checked : el.value;
       }
     });
 
@@ -590,29 +523,19 @@
       ceremonies.push(p.dataset.value);
     });
 
-    // Géolocalisation de la ville (lat/lng/pays depuis la table interne)
-    var geo = lookupCity(raw.ville);
-
-    // Payload structuré — chaque clé correspond à une colonne du Google Sheet
+    // Payload — clés alignées sur le FIELD_MAP de l'Apps Script
     var payload = {
-      horodatage:         new Date().toLocaleString('fr-FR'),
-      prenom:             raw.prenom            || '',
-      nom:                raw.nom               || '',
-      email:              raw.email             || '',
-      telephone:          raw.tel               || '',
-      ville:              raw.ville             || '',
-      lat:                geo.lat               !== undefined ? geo.lat : '',
-      lng:                geo.lng               !== undefined ? geo.lng : '',
-      pays:               geo.country           || '',
-      ceremonies:         ceremonies.join(', '),
-      nombre_convives:    parseInt(document.getElementById('wiz-cnt').textContent) || 1,
-      accompagnant:       raw.accompagnant      || '',
-      enfants:            raw.enfants           || '',
-      enfants_detail:     raw.enfants_detail    || '',
-      regime_alimentaire: raw.diet              || '',
-      navette:            raw.transport         || '',
-      info_hotel:         raw.hotel             || 'non',
-      message:            raw.message           || '',
+      prenom:     raw.prenom      || '',
+      nom:        raw.nom         || '',
+      email:      raw.email       || '',
+      tel:        raw.tel         || '',
+      ville:      raw.ville       || '',
+      ceremonies: ceremonies.join(', '),
+      guests:     parseInt(document.getElementById('wiz-cnt').textContent) || 1,
+      diet:       raw.diet        || '',
+      transport:  raw.transport   || '',
+      hotel:      raw.hotel === true || raw.hotel === 'true', // booléen pour l'Apps Script
+      message:    raw.message     || '',
     };
 
     console.log('[RSVP] payload →', payload);
