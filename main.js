@@ -502,34 +502,131 @@
   });
   syncCompanions();
 
-  // Soumission
+  // ── Table de géolocalisation des villes (clés : minuscules sans accents) ──
+  var CITY_GEO = {
+    'paris':          { lat: 48.85,  lng:   2.35,  country: 'France'         },
+    'lyon':           { lat: 45.76,  lng:   4.83,  country: 'France'         },
+    'marseille':      { lat: 43.30,  lng:   5.37,  country: 'France'         },
+    'bordeaux':       { lat: 44.84,  lng:  -0.58,  country: 'France'         },
+    'toulouse':       { lat: 43.60,  lng:   1.44,  country: 'France'         },
+    'nice':           { lat: 43.71,  lng:   7.26,  country: 'France'         },
+    'nantes':         { lat: 47.22,  lng:  -1.55,  country: 'France'         },
+    'strasbourg':     { lat: 48.57,  lng:   7.75,  country: 'France'         },
+    'montpellier':    { lat: 43.61,  lng:   3.88,  country: 'France'         },
+    'rennes':         { lat: 48.11,  lng:  -1.68,  country: 'France'         },
+    'lille':          { lat: 50.63,  lng:   3.06,  country: 'France'         },
+    'grenoble':       { lat: 45.19,  lng:   5.72,  country: 'France'         },
+    'bruxelles':      { lat: 50.85,  lng:   4.35,  country: 'Belgique'       },
+    'brussels':       { lat: 50.85,  lng:   4.35,  country: 'Belgique'       },
+    'liege':          { lat: 50.63,  lng:   5.57,  country: 'Belgique'       },
+    'geneve':         { lat: 46.20,  lng:   6.14,  country: 'Suisse'         },
+    'geneva':         { lat: 46.20,  lng:   6.14,  country: 'Suisse'         },
+    'zurich':         { lat: 47.38,  lng:   8.54,  country: 'Suisse'         },
+    'berne':          { lat: 46.95,  lng:   7.45,  country: 'Suisse'         },
+    'dakar':          { lat: 14.72,  lng: -17.47,  country: 'Sénégal'        },
+    'abidjan':        { lat:  5.35,  lng:  -4.01,  country: "Côte d'Ivoire"  },
+    'douala':         { lat:  4.06,  lng:   9.70,  country: 'Cameroun'       },
+    'yaounde':        { lat:  3.87,  lng:  11.52,  country: 'Cameroun'       },
+    'brazzaville':    { lat: -4.27,  lng:  15.28,  country: 'Congo'          },
+    'pointe-noire':   { lat: -4.77,  lng:  11.86,  country: 'Congo'          },
+    'kinshasa':       { lat: -4.32,  lng:  15.32,  country: 'RD Congo'       },
+    'libreville':     { lat:  0.39,  lng:   9.45,  country: 'Gabon'          },
+    'port-gentil':    { lat: -0.72,  lng:   8.78,  country: 'Gabon'          },
+    'franceville':    { lat: -1.63,  lng:  13.58,  country: 'Gabon'          },
+    'accra':          { lat:  5.56,  lng:  -0.20,  country: 'Ghana'          },
+    'lagos':          { lat:  6.45,  lng:   3.40,  country: 'Nigeria'        },
+    'abuja':          { lat:  9.07,  lng:   7.40,  country: 'Nigeria'        },
+    'london':         { lat: 51.51,  lng:  -0.13,  country: 'Royaume-Uni'    },
+    'londres':        { lat: 51.51,  lng:  -0.13,  country: 'Royaume-Uni'    },
+    'madrid':         { lat: 40.42,  lng:  -3.70,  country: 'Espagne'        },
+    'new york':       { lat: 40.71,  lng: -74.01,  country: 'États-Unis'     },
+    'montreal':       { lat: 45.50,  lng: -73.57,  country: 'Canada'         },
+    'toronto':        { lat: 43.65,  lng: -79.38,  country: 'Canada'         },
+    'dubai':          { lat: 25.20,  lng:  55.27,  country: 'Émirats Arabes' },
+    'bangui':         { lat:  4.36,  lng:  18.55,  country: 'Centrafrique'   },
+    'bata':           { lat:  1.86,  lng:   9.77,  country: 'Guinée Éq.'     },
+    'malabo':         { lat:  3.75,  lng:   8.78,  country: 'Guinée Éq.'     },
+    'lome':           { lat:  6.14,  lng:   1.22,  country: 'Togo'           },
+    'cotonou':        { lat:  6.37,  lng:   2.42,  country: 'Bénin'          },
+    'bamako':         { lat: 12.65,  lng:  -8.00,  country: 'Mali'           },
+    'conakry':        { lat:  9.54,  lng: -13.68,  country: 'Guinée'         },
+  };
+
+  // Normalise une chaîne pour la recherche (minuscules + suppression des accents)
+  function normCity(s) {
+    return (s || '').trim().toLowerCase()
+      .replace(/[àâä]/g, 'a').replace(/[éèêë]/g, 'e')
+      .replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o')
+      .replace(/[ùûü]/g, 'u').replace(/ç/g, 'c').replace(/ñ/g, 'n');
+  }
+
+  // Cherche les coordonnées d'une ville (correspondance exacte puis partielle)
+  function lookupCity(ville) {
+    var key = normCity(ville);
+    if (!key) return {};
+    if (CITY_GEO[key]) return CITY_GEO[key];
+    for (var k in CITY_GEO) {
+      if (key.indexOf(k) === 0 || k.indexOf(key) === 0) return CITY_GEO[k];
+    }
+    return {};
+  }
+
+  // ── Soumission ─────────────────────────────────────────────────────────────
   function submitRsvp() {
     next.disabled = true;
     next.textContent = 'Envoi…';
 
-    var data = {};
+    // Collecte tous les champs du formulaire
+    var raw = {};
     form.querySelectorAll('input, textarea, select').forEach(function (el) {
-      if (el.name) data[el.name] = el.value;
+      if (el.name) {
+        raw[el.name] = el.type === 'checkbox' ? (el.checked ? 'oui' : 'non') : el.value;
+      }
     });
 
+    // Cérémonies sélectionnées (pills)
     var ceremonies = [];
     document.querySelectorAll('.pill.is-on').forEach(function (p) {
       ceremonies.push(p.dataset.value);
     });
-    data.ceremonies = ceremonies.join(', ');
-    data.guests = document.getElementById('wiz-cnt').textContent;
+
+    // Géolocalisation de la ville (lat/lng/pays depuis la table interne)
+    var geo = lookupCity(raw.ville);
+
+    // Payload structuré — chaque clé correspond à une colonne du Google Sheet
+    var payload = {
+      horodatage:         new Date().toLocaleString('fr-FR'),
+      prenom:             raw.prenom            || '',
+      nom:                raw.nom               || '',
+      email:              raw.email             || '',
+      telephone:          raw.tel               || '',
+      ville:              raw.ville             || '',
+      lat:                geo.lat               !== undefined ? geo.lat : '',
+      lng:                geo.lng               !== undefined ? geo.lng : '',
+      pays:               geo.country           || '',
+      ceremonies:         ceremonies.join(', '),
+      nombre_convives:    parseInt(document.getElementById('wiz-cnt').textContent) || 1,
+      accompagnant:       raw.accompagnant      || '',
+      enfants:            raw.enfants           || '',
+      enfants_detail:     raw.enfants_detail    || '',
+      regime_alimentaire: raw.diet              || '',
+      navette:            raw.transport         || '',
+      info_hotel:         raw.hotel             || 'non',
+      message:            raw.message           || '',
+    };
+
+    console.log('[RSVP] payload →', payload);
 
     var url = window.RSVP_ENDPOINT;
-    if (url && url !== 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    if (url && url !== 'COLLER_URL_APPS_SCRIPT_ICI') {
       fetch(url, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
       }).finally(showSuccess);
     } else {
-      console.log('[RSVP]', data);
-      try { localStorage.setItem('rsvp_emma_isaac', JSON.stringify(data)); } catch (e) {}
+      try { localStorage.setItem('rsvp_emma_isaac', JSON.stringify(payload)); } catch (e) {}
       setTimeout(showSuccess, 600);
     }
   }
@@ -569,17 +666,8 @@
 
   var LIBREVILLE = [9.45, 0.39];
 
-  // Données d'exemple affichées avant les premiers RSVP
-  var CITIES_EXAMPLE = [
-    { name: 'Paris',        lngLat: [2.35,   48.85], guests: 1 },
-    { name: 'Lyon',         lngLat: [4.83,   45.76], guests: 1 },
-    { name: 'Bruxelles',    lngLat: [4.35,   50.85], guests: 1 },
-    { name: 'Genève',       lngLat: [6.14,   46.20], guests: 1 },
-    { name: 'Dakar',        lngLat: [-17.47, 14.72], guests: 1 },
-    { name: 'Abidjan',      lngLat: [-4.01,   5.35], guests: 1 },
-    { name: 'Douala',       lngLat: [9.70,    4.06], guests: 1 },
-    { name: 'Brazzaville',  lngLat: [15.28,  -4.27], guests: 1 },
-  ];
+  // Données d'exemple : vide pour test réel (la carte s'alimente via le Sheet)
+  var CITIES_EXAMPLE = [];
 
   // ── Compte à rebours animé ────────────────────────────────
   function countUp(el, target, duration) {
@@ -606,37 +694,29 @@
     var elV = document.getElementById('convives-cities-count');
     var elC = document.getElementById('convives-countries-count');
 
-    // Pays uniques (depuis les données live avec champ country)
-    var countryCount = null;
-    if (cities._isLive) {
-      var seen = {};
-      cities.forEach(function(c) { if (c.country) seen[c.country] = true; });
-      var n = Object.keys(seen).length;
-      countryCount = n > 0 ? n : null;
-    }
+    // Pays uniques
+    var seenCountries = {};
+    cities.forEach(function(c) { if (c.country) seenCountries[c.country] = true; });
+    var countryCount = Object.keys(seenCountries).length; // toujours un nombre (0 si vide)
 
-    // Anime les chiffres si l'élément est dans le viewport, sinon attend
+    // Anime le chiffre quand l'élément entre dans le viewport (ou immédiatement s'il est déjà visible)
     function animateWhenVisible(el, value) {
       if (!el) return;
-      if (typeof value !== 'number') { el.textContent = value !== null ? value : '—'; return; }
-      var observer = new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting) {
-          countUp(el, value, 1200);
-          observer.disconnect();
-        }
-      }, { threshold: 0.5 });
-      observer.observe(el);
+      if (typeof value !== 'number') { el.textContent = '—'; return; }
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        countUp(el, value, 1200);
+        return;
+      }
+      var obs = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) { countUp(el, value, 1200); obs.disconnect(); }
+      }, { threshold: 0.3 });
+      obs.observe(el);
     }
 
     animateWhenVisible(elT, total);
     animateWhenVisible(elV, cities.length);
-    if (elC) {
-      if (countryCount !== null) {
-        animateWhenVisible(elC, countryCount);
-      } else {
-        elC.textContent = '—';
-      }
-    }
+    animateWhenVisible(elC, countryCount);
   }
 
   // ── Rendu D3 ──────────────────────────────────────────────
@@ -720,33 +800,45 @@
     });
   }
 
-  // ── Chargement : données live d'abord, exemple en fallback ─
+  // ── Chargement des données depuis le Google Sheet ─────────────
   var endpoint = window.RSVP_ENDPOINT;
   if (endpoint && endpoint !== 'COLLER_URL_APPS_SCRIPT_ICI') {
     fetch(endpoint)
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        if (Array.isArray(data) && data.length > 0) {
-          // Données réelles : {name, lat, lng, guests, country}
-          var cities = data.map(function(d) {
-            return { name: d.name, lngLat: [d.lng, d.lat], guests: d.guests || 1, country: d.country || '' };
-          });
-          cities._isLive = true;
-          updateStats(cities);
-          renderMap(cities);
-        } else {
-          // Sheet vide → données exemple
-          updateStats(CITIES_EXAMPLE);
-          renderMap(CITIES_EXAMPLE);
+        if (!Array.isArray(data) || data.length === 0) {
+          // Sheet encore vide → compteurs à zéro, pas de carte
+          updateStats([]);
+          return;
         }
+
+        // Normalise les deux formats possibles du Sheet :
+        //  • Format soumis par le formulaire : {ville, lat, lng, pays, nombre_convives}
+        //  • Format pré-traité éventuel      : {name,  lat, lng, country, guests}
+        var cities = [];
+        data.forEach(function(d) {
+          var lat  = parseFloat(d.lat  || d.latitude  || '');
+          var lng  = parseFloat(d.lng  || d.longitude || '');
+          var name = (d.ville || d.name || '').trim();
+          if (!name || isNaN(lat) || isNaN(lng)) return; // ligne sans géo → on ignore
+          cities.push({
+            name:    name,
+            lngLat:  [lng, lat],
+            guests:  parseInt(d.nombre_convives || d.guests || 1) || 1,
+            country: (d.pays || d.country || '').trim(),
+          });
+        });
+
+        updateStats(cities);
+        if (cities.length > 0) renderMap(cities);
       })
-      .catch(function() {
-        updateStats(CITIES_EXAMPLE);
-        renderMap(CITIES_EXAMPLE);
+      .catch(function(err) {
+        console.warn('[Convives] Erreur chargement données :', err);
+        updateStats([]);
       });
   } else {
-    updateStats(CITIES_EXAMPLE);
-    renderMap(CITIES_EXAMPLE);
+    // Endpoint non configuré → zéros
+    updateStats([]);
   }
 })();
 
