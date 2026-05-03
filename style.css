@@ -521,51 +521,6 @@ img { display: block; max-width: 100%; }
   margin-bottom: 1.75rem;
 }
 
-/* ── GIFs mariés — mobile uniquement ───────────────────────── */
-.hero__gifs {
-  display: none; /* caché par défaut, activé en mobile */
-}
-
-@media (max-width: 767px) {
-  .hero__gifs {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    margin-bottom: 0.5rem;
-    pointer-events: none;
-  }
-
-  .hero__gif {
-    width: 80px;
-    height: auto;
-    opacity: 0;
-    mix-blend-mode: multiply;
-    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.34, 1.3, 0.64, 1);
-    flex-shrink: 0;
-  }
-
-  .hero__gif--left {
-    transform: translateX(-40px);
-  }
-
-  .hero__gif--right {
-    transform: translateX(40px);
-  }
-
-  /* Classe ajoutée par JS quand le hero est visible */
-  .hero__gifs.is-visible .hero__gif--left {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.3s;
-  }
-
-  .hero__gifs.is-visible .hero__gif--right {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.5s;
-  }
-}
 
 /* Names */
 .hero__names {

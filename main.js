@@ -128,29 +128,6 @@
   sections.forEach(function(s) { observer.observe(s); });
 })();
 
-// ── GIFs mariés — apparition au scroll, mobile uniquement ─────────────────
-(function heroGifs() {
-  var gifs = document.querySelector('.hero__gifs');
-  if (!gifs) return;
-
-  // Uniquement sur mobile
-  if (window.matchMedia('(min-width: 768px)').matches) return;
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        gifs.classList.add('is-visible');
-      } else {
-        // Disparaît doucement quand on scrolle au-delà du hero
-        gifs.classList.remove('is-visible');
-      }
-    });
-  }, { threshold: 0.4 });
-
-  var hero = document.getElementById('home') || document.querySelector('.hero');
-  if (hero) observer.observe(hero);
-})();
-
 // ── Navigation — scroll + burger ──────────────────────────────────────────
 (function nav() {
   var el     = document.getElementById('nav');
