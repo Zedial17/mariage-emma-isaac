@@ -882,3 +882,50 @@
     });
   }
 })();
+
+// ── Chapter Lock — verrou de section ─────────────────────────────────────
+(function chapterLock() {
+  var CODE = 'EI2026';
+  document.querySelectorAll('.chapter-lock').forEach(function(lock) {
+    var sectionId = lock.dataset.section;
+    var content = document.querySelector('.chapter-locked[data-section="' + sectionId + '"]');
+    var input = lock.querySelector('.chapter-lock__input');
+    var btn = lock.querySelector('.chapter-lock__btn');
+    var err = lock.querySelector('.chapter-lock__error');
+    // Vérifier sessionStorage
+    if (sessionStorage.getItem('unlocked_' + sectionId) === '1') {
+      lock.style.display = 'none';
+      if (content) content.style.display = 'block';
+    }
+    if (btn) btn.addEventListener('click', function() {
+      if (input.value.trim().toUpperCase() === CODE) {
+        sessionStorage.setItem('unlocked_' + sectionId, '1');
+        lock.style.display = 'none';
+        if (content) content.style.display = 'block';
+      } else {
+        if (err) err.classList.add('is-visible');
+        input.value = '';
+      }
+    });
+    if (input) input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') btn.click();
+    });
+  });
+})();
+
+// ── Enfants conditionnel — afficher détail si oui ────────────────────────
+(function enfantsConditional() {
+  var radiosOui = document.querySelectorAll('input[name="enfants"][value="oui"]');
+  var radiosNon = document.querySelectorAll('input[name="enfants"][value="non"]');
+  var detailField = document.getElementById('enfants-detail-field');
+  if (!detailField) return;
+
+  function updateVisibility() {
+    var checked = document.querySelector('input[name="enfants"]:checked');
+    detailField.style.display = (checked && checked.value === 'oui') ? '' : 'none';
+  }
+
+  document.querySelectorAll('input[name="enfants"]').forEach(function(r) {
+    r.addEventListener('change', updateVisibility);
+  });
+})();
